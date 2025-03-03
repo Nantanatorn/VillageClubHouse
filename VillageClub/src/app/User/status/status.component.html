@@ -1,0 +1,60 @@
+<app-header-user></app-header-user>
+<!DOCTYPE html>
+<p>css</p>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สถานะสนามบอล</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const formattedTime = now.toLocaleString('th-TH', {
+                year: 'numeric', month: 'long', day: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            document.getElementById("updateTime").innerText = formattedTime;
+        }
+        setInterval(updateTime, 1000);
+    </script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full min-h-screen flex flex-col justify-center">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold text-blue-600">Accouncement!!</h2>
+            <p class="text-gray-500">📅 อัปเดตล่าสุด: <span id="updateTime"></span></p>
+        </div>
+        <div class="flex flex-col md:flex-row mt-4">
+            <img src="หญ้าเทียม.jpg" alt="สนามบอล" class="w-full md:w-1/2 rounded-lg">
+            <div class="md:w-1/2 md:pl-6">
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p class="text-red-600 font-semibold">⛔ ปิดทำการ: ศุกร์ - อาทิตย์</p>
+                </div>
+                <ul>
+                    <li class="flex justify-between bg-gray-200 p-3 rounded-md my-1">
+                        <span>10:00 - 12:00 น.</span>
+                        <span class="bg-green-500 text-white px-3 py-1 rounded">ว่าง</span>
+                    </li>
+                    <li class="flex justify-between bg-gray-200 p-3 rounded-md my-1">
+                        <span>12:00 - 14:00 น.</span>
+                        <span class="bg-red-500 text-white px-3 py-1 rounded">ไม่ว่าง</span>
+                    </li>
+                    <li class="flex justify-between bg-gray-200 p-3 rounded-md my-1">
+                        <span>14:00 - 16:00 น.</span>
+                        <span class="bg-green-500 text-white px-3 py-1 rounded">ว่าง</span>
+                    </li>
+                    <li class="flex justify-between bg-gray-200 p-3 rounded-md my-1">
+                        <span>16:00 - 18:00 น.</span>
+                        <span class="bg-red-500 text-white px-3 py-1 rounded">ไม่ว่าง</span>
+                    </li>
+                    <li class="flex justify-between bg-gray-200 p-3 rounded-md my-1">
+                        <span>18:00 - 20:00 น.</span>
+                        <span class="bg-green-500 text-white px-3 py-1 rounded">ว่าง</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

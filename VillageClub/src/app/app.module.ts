@@ -10,6 +10,8 @@ import { HomeComponent } from './User/home/home.component';
 import { RegisterUserComponent } from './User/register-user/register-user.component';
 import { EmployeeManageComponent } from './Admin/employee-manage/employee-manage.component';
 import { FacilityComponent } from './Admin/facility/facility.component';
+import { ReservationComponent } from './User/reservation/reservation.component';
+import { StatusComponent } from './User/status/status.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { FacilityComponent } from './Admin/facility/facility.component';
     HomeComponent,
     RegisterUserComponent,
     EmployeeManageComponent,
-    FacilityComponent
+    FacilityComponent,
+    ReservationComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,
