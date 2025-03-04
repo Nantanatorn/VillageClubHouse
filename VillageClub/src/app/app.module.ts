@@ -12,6 +12,10 @@ import { EmployeeManageComponent } from './Admin/employee-manage/employee-manage
 import { FacilityComponent } from './Admin/facility/facility.component';
 import { ReservationComponent } from './User/reservation/reservation.component';
 import { StatusComponent } from './User/status/status.component';
+import { AdminhomeComponent } from './Admin/adminhome/adminhome.component';
+import { AdminsidebarComponent } from './Admin/adminsidebar/adminsidebar.component';
+
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -23,11 +27,14 @@ import { StatusComponent } from './User/status/status.component';
     EmployeeManageComponent,
     FacilityComponent,
     ReservationComponent,
-    StatusComponent
+    StatusComponent,
+    AdminhomeComponent,
+    AdminsidebarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatIconModule
   ],
   providers: [
     provideClientHydration(),

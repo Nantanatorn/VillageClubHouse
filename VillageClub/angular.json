@@ -40,6 +40,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "node_modules/swiper/swiper-bundle.min.css",
               "src/styles.css"
+              
             ],
             "scripts": [
               "node_modules/flowbite/dist/flowbite.min.js"
