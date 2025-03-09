@@ -16,6 +16,8 @@ import { AdminhomeComponent } from './Admin/adminhome/adminhome.component';
 import { AdminsidebarComponent } from './Admin/adminsidebar/adminsidebar.component';
 
 import { MatIconModule } from '@angular/material/icon';
+import { BooknowComponent } from './User/booknow/booknow.component';
+import { DropdownComponent } from './User/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { MatIconModule } from '@angular/material/icon';
     ReservationComponent,
     StatusComponent,
     AdminhomeComponent,
-    AdminsidebarComponent
+    AdminsidebarComponent,
+    BooknowComponent,
+    DropdownComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,8 @@ import { ReservationComponent } from './User/reservation/reservation.component';
 import { StatusComponent } from './User/status/status.component';
 import { LoginAdminComponent } from './Admin/login-admin/login-admin.component';
 import { AdminhomeComponent } from './Admin/adminhome/adminhome.component';
+import { BooknowComponent } from './User/booknow/booknow.component';
+import { DropdownComponent } from './User/dropdown/dropdown.component';
 
 
 const routes: Routes = [
@@ -15,7 +17,8 @@ const routes: Routes = [
   {path:'reg',component:RegisterUserComponent},
   {path:'reservation',component:ReservationComponent},
   {path:'status',component:StatusComponent},
-
+  {path:'booknow',component:BooknowComponent},
+  {path:'dropdown',component:DropdownComponent},
   //admin page
   {path:'admin',component:LoginAdminComponent},
   {path:'adminhome',component:AdminhomeComponent},
