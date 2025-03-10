@@ -13,39 +13,44 @@
         <!-- Right Side - Form -->
         <div class="w-1/2 p-10">
             <h2 class="text-3xl font-bold text-gray-800 text-center">Sign Up</h2>
-
-            <!-- Input Fields -->
-            <div class="space-y-4 mt-6">
-                <!-- UserName -->
-                <input type="text" placeholder="UserName"
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
-
-                <!-- Name & Surname -->
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="Name"
+        
+            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+                <div class="space-y-4 mt-6">
+        
+                    <!-- Name & Surname -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" placeholder="First Name" formControlName="firstName"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
+                        <input type="text" placeholder="Last Name" formControlName="lastName"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
+                    </div>
+        
+                    <!-- ID Card -->
+                    <input type="text" placeholder="ID Card" formControlName="idCard"
                         class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
-                    <input type="text" placeholder="Surname"
-                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
+        
+                    <!-- Email & Phone -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="email" placeholder="Email" formControlName="email"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
+                        <input type="text" placeholder="Phone" formControlName="phone"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
+                    </div>
+        
+                    <!-- Password & Confirm Password -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="password" placeholder="Password" formControlName="password"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
+                        <input type="password" placeholder="Confirm Password" formControlName="confirmPassword"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
+                    </div>
+        
+                    <!-- Sign Up Button -->
+                    <button class="w-full mt-6 bg-purple-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-purple-700 transition"
+                        type="submit" [disabled]="signUpForm.invalid">
+                        Sign Up
+                    </button>
                 </div>
-
-                <!-- Email & Password -->
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="email" placeholder="Email"
-                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
-                    <input type="password" placeholder="Password"
-                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
-                </div>
-
-                <!-- Phone -->
-                <input type="text" placeholder="Phone"
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
-            </div>
-
-            <!-- Save Button -->
-            <button class="w-full mt-6 bg-purple-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-purple-700 transition"
-                (click)="goLogin()">
-                Sign in
-            </button>
+            </form>
         </div>
-    </div>
 </div>

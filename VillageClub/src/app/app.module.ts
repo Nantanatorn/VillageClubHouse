@@ -18,6 +18,7 @@ import { AdminsidebarComponent } from './Admin/adminsidebar/adminsidebar.compone
 import { MatIconModule } from '@angular/material/icon';
 import { BooknowComponent } from './User/booknow/booknow.component';
 import { DropdownComponent } from './User/dropdown/dropdown.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { DropdownComponent } from './User/dropdown/dropdown.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),
