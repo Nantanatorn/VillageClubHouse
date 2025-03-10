@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nanta\\Desktop\\ProjectFinish\\Club House\\Backend\\ClubAPI\\ClubAPI.csproj": {}
+    "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\ClubAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nanta\\Desktop\\ProjectFinish\\Club House\\Backend\\ClubAPI\\ClubAPI.csproj": {
+    "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\ClubAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nanta\\Desktop\\ProjectFinish\\Club House\\Backend\\ClubAPI\\ClubAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\ClubAPI.csproj",
         "projectName": "ClubAPI",
-        "projectPath": "C:\\Users\\Nanta\\Desktop\\ProjectFinish\\Club House\\Backend\\ClubAPI\\ClubAPI.csproj",
-        "packagesPath": "C:\\Users\\Nanta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nanta\\Desktop\\ProjectFinish\\Club House\\Backend\\ClubAPI\\obj\\",
+        "projectPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\ClubAPI.csproj",
+        "packagesPath": "C:\\Users\\Chino4210\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Nanta\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Chino4210\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net9.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net9.0": {
+            "targetAlias": "net9.0",
             "projectReferences": {}
           }
         },
@@ -37,19 +37,36 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[8.0.12, )"
+              "version": "[9.0.2, )"
             },
-            "Swashbuckle.AspNetCore": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.6.2, )"
+              "version": "[9.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.2, )"
             }
           },
           "imports": [
@@ -71,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.405/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
