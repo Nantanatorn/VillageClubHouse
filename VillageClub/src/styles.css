@@ -1,7 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

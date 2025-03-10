@@ -1,8 +1,6 @@
 namespace ClubAPI.Models;
-
-public class User
+public class RegisterModel
 {
-    public int Id { get; set; }
     public string IdCard { get; set; } = string.Empty;
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;

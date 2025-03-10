@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClubAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26e12ddc83d655be3cfd330c7625284301c25140")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e948972f04fe60517c552177220ee6f51dc13a4")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClubAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClubAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
