@@ -1,7 +1,8 @@
+namespace ClubAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using ClubAPI.Models;
 
-namespace ClubAPI.Data;
+
 
 public class AppDbContext : DbContext
 {
