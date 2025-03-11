@@ -25,43 +25,47 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterModel model)
+  [HttpPost("register")]
+public async Task<IActionResult> Register([FromBody] RegisterModel model)
+{
+    if (await _context.Users.AnyAsync(u => u.Email == model.Email))
     {
-        if (await _context.Users.AnyAsync(u => u.Email == model.Email))
-        {
-            return BadRequest(new { message = "Email นี้ถูกใช้งานแล้ว" });
-        }
-
-        if (await _context.Users.AnyAsync(u => u.Phone == model.Phone))
-        {
-            return BadRequest(new { message = "เบอร์โทรศัพท์นี้ถูกใช้งานแล้ว" });
-        }
-
-        if (await _context.Users.AnyAsync(u => u.IdCard == model.IdCard))
-        {
-            return BadRequest(new { message = "หมายเลขบัตรประจำตัวประชาชนถูกใช้งานแล้ว" });
-        }
-
-        var passwordHash = HashPassword(model.Password);
-
-        var user = new User
-        {
-            IdCard = model.IdCard,
-            FirstName = model.FirstName,
-            LastName = model.LastName,
-            BirthDate = model.BirthDate,
-            Email = model.Email,
-            Phone = model.Phone,
-            Role = model.Role,
-            Password = passwordHash
-        };
-
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-
-        return Ok(new { message = "ยินดีต้อนรับ!" });
+        return BadRequest(new { message = "Email นี้ถูกใช้งานแล้ว" });
     }
+
+    if (await _context.Users.AnyAsync(u => u.Phone == model.Phone))
+    {
+        return BadRequest(new { message = "เบอร์โทรศัพท์นี้ถูกใช้งานแล้ว" });
+    }
+
+    if (await _context.Users.AnyAsync(u => u.IdCard == model.IdCard))
+    {
+        return BadRequest(new { message = "หมายเลขบัตรประจำตัวประชาชนถูกใช้งานแล้ว" });
+    }
+
+    var passwordHash = HashPassword(model.Password);
+
+    var defaultRole = "member"; // ✅ คงค่า Role เป็น "member"
+    var defaultDate = new DateTime(2000, 1, 1); // ✅ กำหนดให้ BirthDate เป็น DateTime ตรงๆ
+
+    var user = new User
+    {
+        IdCard = model.IdCard,
+        FirstName = model.FirstName,
+        LastName = model.LastName,
+        BirthDate = defaultDate, // ✅ ใช้ DateTime แทน String
+        Email = model.Email,
+        Phone = model.Phone,
+        Role = defaultRole,
+        Password = passwordHash
+    };
+
+    _context.Users.Add(user);
+    await _context.SaveChangesAsync();
+
+    return Ok(new { message = "ยินดีต้อนรับ!" });
+}
+
 
     // Hash Password (SHA256)
     private string HashPassword(string password)
@@ -88,7 +92,7 @@ public class UserController : ControllerBase
     }
 
      private string GenerateJwtToken(User user)
-{
+    {
     var jwtSettings = _config.GetSection("JwtSettings");
 
     // ตรวจสอบว่ามี SecretKey หรือไม่
@@ -120,7 +124,7 @@ public class UserController : ControllerBase
     );
 
     return new JwtSecurityTokenHandler().WriteToken(token);
-}
+    }
 
     // ฟังก์ชันตรวจสอบ Password
     private bool VerifyPassword(string inputPassword, string storedHash)

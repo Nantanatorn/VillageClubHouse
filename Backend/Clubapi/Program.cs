@@ -31,6 +31,17 @@ if (keyBytes.Length == 0)
     throw new Exception("JWT Secret Key is empty! Check your .env file.");
 }
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")  
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
+
 //  เพิ่ม JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -113,6 +124,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors("AllowSpecificOrigin");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

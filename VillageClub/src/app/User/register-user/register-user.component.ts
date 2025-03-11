@@ -1,87 +1,101 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { initFlowbite } from 'flowbite';
-import { FlowbiteService } from '../../Service/flowbite.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { RegisterService } from '../../Service/registerService/register.service';
-
 
 @Component({
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
-  styleUrl: './register-user.component.css'
+  styleUrls: ['./register-user.component.css']
 })
-export class RegisterUserComponent implements OnInit{
+export class RegisterUserComponent implements OnInit {
+  signUpForm!: FormGroup;
+  private apiUrl = 'http://127.0.0.1:5203/api/User/register'; // ✅ API URL
 
-  signUpForm: FormGroup;
-
-  constructor(private flowbiteService: FlowbiteService,
-              private router: Router,
-              private fb: FormBuilder,
-              private registerService: RegisterService) {
-    this.signUpForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      idCard: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
-    }, { validator: this.passwordMatchValidator });
-  }
+  constructor(private fb: FormBuilder, 
+              private http: HttpClient, 
+              private router: Router) {}
 
   ngOnInit(): void {
-    this.flowbiteService.loadFlowbite((flowbite) => {
-      initFlowbite();
-    });
+    this.signUpForm = this.fb.group({
+      firstName: ['', [Validators.required, Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      idCard: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
+      phone: ['', [Validators.required, Validators.maxLength(10)]],
+      password: ['', [Validators.required, Validators.maxLength(10)]],
+      confirmPassword: ['', [Validators.required, Validators.maxLength(10)]]
+    }, { validators: this.passwordMatchValidator });
   }
 
   goLogin() {
-    this.router.navigate(['']);
-  }
-    
-  passwordMatchValidator(form: FormGroup) {
-    return form.get('password')!.value === form.get('confirmPassword')!.value 
-      ? null 
-      : { mismatch: true };
+    console.log("🔄 Navigating to Login Page...");
+    this.router.navigate(['/login']).then(success => {
+      console.log("✅ Navigation Success:", success);
+    }).catch(error => {
+      console.error("❌ Navigation Error:", error);
+    });
   }
 
-  onSubmit() {
-    console.log('Form submit triggered');
-    if (this.signUpForm.valid) {
-      console.log('Form data:', this.signUpForm.value);
+  onSubmit(): void {
+    console.log('🚀 Form submit triggered');
 
-      // ส่งข้อมูลไปยังเซิร์ฟเวอร์
-      this.registerService.registerUser(this.signUpForm.value).subscribe(
-        response => {
-          Swal.fire({
-            title: "สมัคร สำเร็จ!",
-            text: "sign up successful",
-            icon: "success"
-          });
-          console.log('Registration successful', response);
-          this.router.navigate(['']);
-          
-        },
-        error => { 
-          Swal.fire({
-          title: "สมัคร ไม่สำเร็จ",
-          text: "sign up failed",
-          icon: "error"
-        });
-          console.error('Registration error', error);
-        }
-      );
-      this.signUpForm.reset();
-    } else {
+    if (this.signUpForm.invalid) {
       Swal.fire({
         title: "กรอกข้อมูลไม่ถูกต้อง",
-        text: "form is invalid",
-        icon: "error"})
-      console.log('Form is invalid');
+        text: "Form is invalid",
+        icon: "error"
+      });
+      console.log('❌ Form is invalid');
+      return;
     }
+
+    if (this.signUpForm.errors?.['mismatch']) {
+      Swal.fire({
+        title: "รหัสผ่านไม่ตรงกัน",
+        text: "Passwords do not match",
+        icon: "error"
+      });
+      console.log('❌ Passwords do not match');
+      return;
+    }
+
+    // ✅ กำจัด confirmPassword ออกจากข้อมูลที่ส่งไปยัง API
+    const { confirmPassword, ...userData } = this.signUpForm.value;
+
+    console.log('✅ Sending registration data:', userData);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    this.http.post(this.apiUrl, userData, { headers }).subscribe(
+      response => {
+        Swal.fire({
+          title: "สมัครสำเร็จ!",
+          text: "Sign up successful",
+          icon: "success"
+        });
+        console.log('✅ Registration successful:', response);
+        this.router.navigate(['/login']);
+        this.signUpForm.reset();
+      },
+      error => {
+        Swal.fire({
+          title: "สมัครไม่สำเร็จ",
+          text: error.error?.message || "ข้อมูลบางส่วนอาจซ้ำ",
+          icon: "error"
+        });
+        console.error('❌ Registration error:', error);
+      }
+    );
+}
+
+
+  passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
   }
-
-
 }
