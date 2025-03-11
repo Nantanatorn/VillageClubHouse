@@ -12,7 +12,8 @@ import { DropdownComponent } from './User/dropdown/dropdown.component';
 
 
 const routes: Routes = [
-  {path:'',component:LoginUserComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, 
+  { path: 'login', component:LoginUserComponent },
   {path:'home',component:HomeComponent},
   {path:'reg',component:RegisterUserComponent},
   {path:'reservation',component:ReservationComponent},

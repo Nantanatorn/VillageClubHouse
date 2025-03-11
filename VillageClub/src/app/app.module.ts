@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router'; // ✅ ตรวจสอบว่ามี RouterModule
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,11 +15,12 @@ import { ReservationComponent } from './User/reservation/reservation.component';
 import { StatusComponent } from './User/status/status.component';
 import { AdminhomeComponent } from './Admin/adminhome/adminhome.component';
 import { AdminsidebarComponent } from './Admin/adminsidebar/adminsidebar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatIconModule } from '@angular/material/icon';
 import { BooknowComponent } from './User/booknow/booknow.component';
 import { DropdownComponent } from './User/dropdown/dropdown.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './User/footer/footer.component';
 
 @NgModule({
@@ -37,12 +39,16 @@ import { FooterComponent } from './User/footer/footer.component';
     BooknowComponent,
     DropdownComponent,
     FooterComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration(),
