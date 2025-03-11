@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ClubAPI.Models;
 using ClubAPI.Data;
+using Microsoft.AspNetCore.Authorization;
 
 
 [Route("api/[controller]")]
@@ -134,5 +135,71 @@ public async Task<IActionResult> Register([FromBody] RegisterModel model)
             byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(inputPassword));
             return Convert.ToBase64String(bytes) == storedHash;
         }
+    }
+
+    [HttpPut("UserEdit")]
+    [Authorize] // ✅ ใช้ JWT Token ตรวจสอบว่าเป็นผู้ใช้ที่ล็อกอินอยู่
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserModel model)
+    {
+        // ✅ ดึง UserId จาก JWT Token
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null)
+        {
+            return Unauthorized(new { message = "Unauthorized access" });
+        }
+
+        int userId = int.Parse(userIdClaim);
+
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return NotFound(new { message = "ไม่พบผู้ใช้" });
+        }
+
+        // ✅ อัปเดตข้อมูลที่ผู้ใช้ส่งมา
+        user.FirstName = model.FirstName;
+        user.LastName = model.LastName;
+        user.Phone = model.Phone;
+        
+        if (model.BirthDate.HasValue)
+        {
+            user.BirthDate = model.BirthDate.Value;
+        }
+
+        // ✅ ถ้าผู้ใช้ต้องการเปลี่ยนรหัสผ่าน ให้เข้ารหัสใหม่
+        if (!string.IsNullOrEmpty(model.Password))
+        {
+            user.Password = HashPassword(model.Password);
+        }
+
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "อัปเดตข้อมูลสำเร็จ!" });
+    }
+
+    [HttpGet("GetallUser")]
+    [Authorize(Roles = "Admin")] // ✅ ใช้ JWT Token และต้องเป็น Admin
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var users = await _context.Users
+            .Select(u => new
+            {
+                u.IdCard,
+                u.FirstName,
+                u.LastName,
+                u.Email,
+                u.Phone,
+                u.Role,
+                u.BirthDate
+            })
+            .ToListAsync();
+
+        if (users == null || users.Count == 0)
+        {
+            return NotFound(new { message = "ไม่พบข้อมูลผู้ใช้" });
+        }
+
+        return Ok(users);
     }
 }
