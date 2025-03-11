@@ -4916,19 +4916,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Chino4210\\.nuget\\packages\\": {}
+    "C:\\Users\\gidju\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\ClubAPI.csproj",
+      "projectUniqueName": "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
       "projectName": "ClubAPI",
-      "projectPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\ClubAPI.csproj",
-      "packagesPath": "C:\\Users\\Chino4210\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\obj\\",
+      "projectPath": "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
+      "packagesPath": "C:\\Users\\gidju\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Chino4210\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\gidju\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
