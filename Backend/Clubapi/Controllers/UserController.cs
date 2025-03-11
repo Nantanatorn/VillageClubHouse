@@ -178,27 +178,37 @@ public async Task<IActionResult> Register([FromBody] RegisterModel model)
         return Ok(new { message = "อัปเดตข้อมูลสำเร็จ!" });
     }
 
-    [HttpGet("GetallUser")]
-    [Authorize(Roles = "Admin")] // ✅ ใช้ JWT Token และต้องเป็น Admin
+
+    [HttpGet("all")]
+    [Authorize(Roles = "Admin")] // ✅ ต้องเป็น Admin เท่านั้น
     public async Task<IActionResult> GetAllUsers()
     {
-        var users = await _context.Users
-            .Select(u => new
-            {
-                u.IdCard,
-                u.FirstName,
-                u.LastName,
-                u.Email,
-                u.Phone,
-                u.Role,
-                u.BirthDate
-            })
-            .ToListAsync();
+        var roleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+        var rawClaims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
 
-        if (users == null || users.Count == 0)
+        Console.WriteLine("🔍 All Claims from Token:");
+        foreach (var claim in rawClaims)
         {
-            return NotFound(new { message = "ไม่พบข้อมูลผู้ใช้" });
+            Console.WriteLine($"🔍 {claim.Type}: {claim.Value}");
         }
+
+        if (string.IsNullOrEmpty(roleClaim))
+        {
+            return Unauthorized(new { message = "Role not found in token" });
+        }
+
+        Console.WriteLine($"🔍 Role from JWT: {roleClaim}");
+
+        var users = await _context.Users.Select(u => new
+        {
+            u.IdCard,
+            u.FirstName,
+            u.LastName,
+            u.Email,
+            u.Phone,
+            u.Role,
+            u.BirthDate
+        }).ToListAsync();
 
         return Ok(users);
     }
