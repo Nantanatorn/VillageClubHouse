@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BooknowComponent } from './User/booknow/booknow.component';
 import { DropdownComponent } from './User/dropdown/dropdown.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './User/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AdminhomeComponent,
     AdminsidebarComponent,
     BooknowComponent,
-    DropdownComponent
+    DropdownComponent,
+    FooterComponent,
+    
   ],
   imports: [
     BrowserModule,
