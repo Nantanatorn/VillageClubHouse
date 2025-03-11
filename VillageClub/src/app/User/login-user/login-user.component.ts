@@ -13,6 +13,7 @@ export class LoginUserComponent implements OnInit {
 
   loginForm!: FormGroup;
   errorMessage: string = '';
+  userRole: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,15 @@ export class LoginUserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.userRole = this.authService.getRole();
+      if (this.userRole === 'admin') {
+        this.router.navigate(['/AdminHome']);
+      } else if (this.userRole === 'Resident') {
+        this.router.navigate(['/home']);
+      }
+    }
   }
 
   goReg() {

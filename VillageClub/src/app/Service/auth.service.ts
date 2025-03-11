@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,16 @@ export class AuthService {
       console.error("❌ No token received!");
     }
   }
+
+  getRole(): string | null {
+   
+    const token =localStorage.getItem('token');
+    if(token){
+      const payload =this.decodeToken(token);
+      return payload?.user?.role||null;
+    }
+    return null;
+  }
   
 
   getToken(): string | null {
@@ -36,4 +47,15 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token'); //  ลบ Token เมื่อ Logout
   }
+
+  private decodeToken(token: string):any{
+    try{
+      return jwtDecode(token);
+
+    }catch(error){
+      console.error('Failed to decode token',error);
+      return null;
+    }
+  }
+
 }
