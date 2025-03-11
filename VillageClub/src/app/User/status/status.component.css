@@ -1,0 +1,8 @@
+app-header-user {
+    position: relative;
+    z-index: 1000;
+}
+
+h2 {
+    margin-top: 60px;
+}
