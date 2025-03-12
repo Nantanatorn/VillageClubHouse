@@ -26,14 +26,11 @@ export class LoginUserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
-    const token = localStorage.getItem('token');
+
+    // ✅ ตรวจสอบ Token และ Role ตอนเริ่มต้น
+    const token = this.authService.getToken();
     if (token) {
-      this.userRole = this.authService.getRole();
-      if (this.userRole === 'admin') {
-        this.router.navigate(['/AdminHome']);
-      } else if (this.userRole === 'Resident') {
-        this.router.navigate(['/home']);
-      }
+      this.redirectBasedOnRole();
     }
   }
 
@@ -50,13 +47,13 @@ export class LoginUserComponent implements OnInit {
       });
       return;
     }
-  
+
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe(
       response => {
-        console.log("✅ API Response:", response); // ✅ Debug เช็ค API Response
-  
-        if (response.token) { // ตรวจสอบว่ามี token หรือไม่
+        console.log("✅ API Response:", response);
+
+        if (response.token) {
           this.authService.saveToken(response.token);
           Swal.fire({
             title: "เข้าสู่ระบบสำเร็จ!",
@@ -64,7 +61,7 @@ export class LoginUserComponent implements OnInit {
             icon: "success",
             timer: 2000
           }).then(() => {
-            this.router.navigate(['/home']);
+            this.redirectBasedOnRole();
           });
         } else {
           console.error("❌ No token in response!");
@@ -86,5 +83,16 @@ export class LoginUserComponent implements OnInit {
       }
     );
   }
-  
+
+  redirectBasedOnRole() {
+    this.userRole = this.authService.getRole();
+    console.log("🔍 User Role:", this.userRole);
+
+    if (this.userRole === 'Admin') {
+        this.router.navigate(['/adminhome']);
+    } else {
+        this.router.navigate(['/home']);
+    }
+}
+
 }
