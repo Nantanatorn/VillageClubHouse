@@ -1,6 +1,5 @@
 <app-header-user></app-header-user>
 <!DOCTYPE html>
-<p>css</p>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -25,55 +24,17 @@
             <h2 class="text-xl font-bold text-blue-600">Accouncement!!</h2>
             <p class="text-gray-500">📅 อัปเดตล่าสุด: <span id="updateTime"></span></p>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-            <!-- โต๊ะสนุ๊ก -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">🎱 โต๊ะสนุ๊ก</h3>
-                <img src="โต๊ะสนุ๊ก.webp" alt="โต๊ะสนุ๊ก" class="w-full rounded-lg mt-2">
+            <!-- รายการสถานที่ -->
+            <div *ngFor="let facility of facilityList" class="p-4 bg-gray-200 rounded-lg">
+                <h3 class="text-lg font-bold">{{ facility.icon }} {{ facility.name }}</h3>
+                <img [src]="facility.image" [alt]="facility.name" class="w-full rounded-lg mt-2">
                 <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">11/03/2025 | 14:00 - 16:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">12/03/2025 | 10:00 - 12:00 น. | ไม่ว่าง</li>
-                </ul>
-            </div>
-            
-            <!-- สนามเทนนิส -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">🎾 สนามเทนนิส</h3>
-                <img src="สนามเทนนิส.webp" alt="สนามเทนนิส" class="w-full rounded-lg mt-2">
-                <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">10/03/2025 | 09:00 - 11:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">12/03/2025 | 15:00 - 17:00 น. | ไม่ว่าง</li>
-                </ul>
-            </div>
-
-            <!-- สนามแบดมินตัน -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">🏸 สนามแบดมินตัน</h3>
-                <img src="สนามแบต.webp" alt="สนามแบดมินตัน" class="w-full rounded-lg mt-2">
-                <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">09/03/2025 | 13:00 - 15:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">12/03/2025 | 18:00 - 20:00 น. | ไม่ว่าง</li>
-                </ul>
-            </div>
-
-            <!-- สนามฟุตบอล -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">⚽ สนามฟุตบอล</h3>
-                <img src="สนามฟุตบอล.webp" alt="สนามฟุตบอล" class="w-full rounded-lg mt-2">
-                <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">08/03/2025 | 18:00 - 20:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">11/03/2025 | 14:00 - 16:00 น. | ไม่ว่าง</li>
-                </ul>
-            </div>
-
-            <!-- ห้องจัดเลี้ยง -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">🍽️ ห้องจัดเลี้ยง</h3>
-                <img src="ห้องจัดเลี้ยง.webp" alt="ห้องจัดเลี้ยง" class="w-full rounded-lg mt-2">
-                <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">07/03/2025 | 12:00 - 14:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">10/03/2025 | 17:00 - 19:00 น. | ไม่ว่าง</li>
+                    <li *ngFor="let booking of bookings[facility.key]" 
+                        class="bg-red-500 text-white px-3 py-1 rounded my-1">
+                        {{ formatDate(booking.date) }} | {{ booking.time }} | {{ booking.status }}
+                    </li>
                 </ul>
             </div>
         </div>
