@@ -1,82 +1,20 @@
 <app-header-user></app-header-user>
-<!DOCTYPE html>
-<p>css</p>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สถานะ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        function updateTime() {
-            const now = new Date();
-            const formattedTime = now.toLocaleString('th-TH', {
-                year: 'numeric', month: 'long', day: 'numeric',
-                hour: '2-digit', minute: '2-digit', second: '2-digit'
-            });
-            document.getElementById("updateTime").innerText = formattedTime;
-        }
-        setInterval(updateTime, 1000);
-    </script>
-</head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen mt-16">
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full min-h-screen flex flex-col justify-center">
-        <div class="flex justify-between items-center">
-            <h2 class="text-xl font-bold text-blue-600">Accouncement!!</h2>
-            <p class="text-gray-500">📅 อัปเดตล่าสุด: <span id="updateTime"></span></p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-            <!-- โต๊ะสนุ๊ก -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">🎱 โต๊ะสนุ๊ก</h3>
-                <img src="โต๊ะสนุ๊ก.webp" alt="โต๊ะสนุ๊ก" class="w-full rounded-lg mt-2">
-                <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">11/03/2025 | 14:00 - 16:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">12/03/2025 | 10:00 - 12:00 น. | ไม่ว่าง</li>
-                </ul>
-            </div>
-            
-            <!-- สนามเทนนิส -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">🎾 สนามเทนนิส</h3>
-                <img src="สนามเทนนิส.webp" alt="สนามเทนนิส" class="w-full rounded-lg mt-2">
-                <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">10/03/2025 | 09:00 - 11:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">12/03/2025 | 15:00 - 17:00 น. | ไม่ว่าง</li>
-                </ul>
-            </div>
 
-            <!-- สนามแบดมินตัน -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">🏸 สนามแบดมินตัน</h3>
-                <img src="สนามแบต.webp" alt="สนามแบดมินตัน" class="w-full rounded-lg mt-2">
-                <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">09/03/2025 | 13:00 - 15:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">12/03/2025 | 18:00 - 20:00 น. | ไม่ว่าง</li>
-                </ul>
-            </div>
+<div class="container mx-auto px-4 py-10 mt-16">
+  <h2 class="text-2xl font-bold text-white text-center mb-4 bg-gray-900 py-3 rounded">📢 ประกาศสถานะการใช้งาน</h2>
+  <p class="text-sm text-gray-300 text-center mb-8">📅 อัปเดตล่าสุด: <span id="updateTime" class="font-semibold text-white"></span></p>
 
-            <!-- สนามฟุตบอล -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">⚽ สนามฟุตบอล</h3>
-                <img src="สนามฟุตบอล.webp" alt="สนามฟุตบอล" class="w-full rounded-lg mt-2">
-                <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">08/03/2025 | 18:00 - 20:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">11/03/2025 | 14:00 - 16:00 น. | ไม่ว่าง</li>
-                </ul>
-            </div>
-
-            <!-- ห้องจัดเลี้ยง -->
-            <div class="p-4 bg-gray-200 rounded-lg">
-                <h3 class="text-lg font-bold">🍽️ ห้องจัดเลี้ยง</h3>
-                <img src="ห้องจัดเลี้ยง.webp" alt="ห้องจัดเลี้ยง" class="w-full rounded-lg mt-2">
-                <ul class="mt-2">
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">07/03/2025 | 12:00 - 14:00 น. | ไม่ว่าง</li>
-                    <li class="bg-red-500 text-white px-3 py-1 rounded my-1">10/03/2025 | 17:00 - 19:00 น. | ไม่ว่าง</li>
-                </ul>
-            </div>
-        </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div *ngFor="let fac of facilities" class="card bg-gray-900 rounded-lg shadow-lg overflow-hidden text-white">
+      <div class="p-5">
+        <h3 class="text-xl font-bold mb-2">{{ fac.fac_Name }}</h3>
+        <img [src]="fac.fac_img" [alt]="fac.fac_Name" class="rounded-xl mb-3 w-full">
+        <ul class="space-y-2">
+          <p class="text-sm text-green-300 mt-1">Status: {{ fac.fac_Status }}</p>
+        </ul>
+      </div>
     </div>
-</body>
-</html>
+  </div>
+  
+</div>
+

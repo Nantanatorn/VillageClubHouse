@@ -179,7 +179,7 @@ public async Task<IActionResult> Register([FromBody] RegisterModel model)
     }
 
 
-    [HttpGet("all")]
+    [HttpGet("userall")]
     [Authorize(Roles = "Admin")] // ✅ ต้องเป็น Admin เท่านั้น
     public async Task<IActionResult> GetAllUsers()
     {
