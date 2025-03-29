@@ -22,6 +22,7 @@ import { BooknowComponent } from './User/booknow/booknow.component';
 import { DropdownComponent } from './User/dropdown/dropdown.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './User/footer/footer.component';
+import { StaffComponent } from './staff/staff.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FooterComponent } from './User/footer/footer.component';
     BooknowComponent,
     DropdownComponent,
     FooterComponent,
+    StaffComponent,
     
   ],
   imports: [
