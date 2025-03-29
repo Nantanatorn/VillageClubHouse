@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginUserComponent } from './User/login-user/login-user.component';
-import { HomeComponent } from './User/home/home.component';
-import { RegisterUserComponent } from './User/register-user/register-user.component';
-import { ReservationComponent } from './User/reservation/reservation.component';
-import { StatusComponent } from './User/status/status.component';
-import { LoginAdminComponent } from './Admin/login-admin/login-admin.component';
-import { AdminhomeComponent } from './Admin/adminhome/adminhome.component';
-import { BooknowComponent } from './User/booknow/booknow.component';
-import { DropdownComponent } from './User/dropdown/dropdown.component';
-
+import { LoginUserComponent } from './User/pages/login-user/login-user.component';
+import { HomeComponent } from './User/pages/home/home.component';
+import { RegisterUserComponent } from './User/pages/register-user/register-user.component';
+import { ReservationComponent}from './User/pages/reservation/reservation.component';
+import { StatusComponent } from './User/pages/status/status.component';
+import { LoginAdminComponent } from './Admin/pages/login-admin/login-admin.component';
+import { AdminhomeComponent } from './Admin/pages/adminhome/adminhome.component';
+import { BooknowComponent}from './User/components/booknow/booknow.component';
+import { DropdownComponent } from './User/components/dropdown/dropdown.component';
+import { EditProfileComponent } from './User/components/edit-profile/edit-profile.component';
+import { EmployeeManageComponent } from './Admin/pages/employee-manage/employee-manage.component';
+import { FacilityComponent } from './Admin/pages/facility/facility.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, 
@@ -20,9 +22,13 @@ const routes: Routes = [
   {path:'status',component:StatusComponent},
   {path:'booknow',component:BooknowComponent},
   {path:'dropdown',component:DropdownComponent},
+  {path:'editprofile',component:EditProfileComponent},
   //admin page
   {path:'admin',component:LoginAdminComponent},
   {path:'adminhome',component:AdminhomeComponent},
+  {path:'employee-manage',component:EmployeeManageComponent},
+  {path:'facility',component:FacilityComponent},
+
 ];
 
 @NgModule({

@@ -1,8 +1,6 @@
 namespace ClubAPI.Models;
-
-public class User
+public class AddEmpModel
 {
-    public int Id { get; set; }
     public string IdCard { get; set; } = string.Empty;
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
@@ -14,5 +12,4 @@ public class User
     public string Position { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public string? Status { get; set; } = string.Empty;
-
 }

@@ -5,23 +5,29 @@ import { RouterModule } from '@angular/router'; // ✅ ตรวจสอบว�
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { LoginUserComponent } from './User/login-user/login-user.component';
-import { HeaderUserComponent } from './User/header-user/header-user.component';
-import { HomeComponent } from './User/home/home.component';
-import { RegisterUserComponent } from './User/register-user/register-user.component';
-import { EmployeeManageComponent } from './Admin/employee-manage/employee-manage.component';
-import { FacilityComponent } from './Admin/facility/facility.component';
-import { ReservationComponent } from './User/reservation/reservation.component';
-import { StatusComponent } from './User/status/status.component';
-import { AdminhomeComponent } from './Admin/adminhome/adminhome.component';
-import { AdminsidebarComponent } from './Admin/adminsidebar/adminsidebar.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MatIconModule } from '@angular/material/icon';
-import { BooknowComponent } from './User/booknow/booknow.component';
-import { DropdownComponent } from './User/dropdown/dropdown.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FooterComponent } from './User/footer/footer.component';
+
+import { LoginUserComponent } from './User/pages/login-user/login-user.component';
+import { HomeComponent } from './User/pages/home/home.component';
+import { RegisterUserComponent } from './User/pages/register-user/register-user.component';
+import { ReservationComponent}from './User/pages/reservation/reservation.component';
+import { StatusComponent } from './User/pages/status/status.component';
+import { LoginAdminComponent } from './Admin/pages/login-admin/login-admin.component';
+import { AdminhomeComponent } from './Admin/pages/adminhome/adminhome.component';
+import { BooknowComponent}from './User/components/booknow/booknow.component';
+import { DropdownComponent } from './User/components/dropdown/dropdown.component';
+import { EditProfileComponent } from './User/components/edit-profile/edit-profile.component';
+import { AdminsidebarComponent } from './Admin/components/adminsidebar/adminsidebar.component';
+import { EmployeeManageComponent } from './Admin/pages/employee-manage/employee-manage.component';
+import { FacilityComponent } from './Admin/pages/facility/facility.component';
+import { FooterComponent } from './User/components/footer/footer.component';
+import { HeaderUserComponent } from './User/components/header-user/header-user.component';
+import { EmpModalComponent } from './Admin/components/emp-modal/emp-modal.component';
+
+
 
 @NgModule({
   declarations: [
@@ -39,6 +45,10 @@ import { FooterComponent } from './User/footer/footer.component';
     BooknowComponent,
     DropdownComponent,
     FooterComponent,
+    EditProfileComponent,
+    EmpModalComponent,
+  
+    
     
   ],
   imports: [
