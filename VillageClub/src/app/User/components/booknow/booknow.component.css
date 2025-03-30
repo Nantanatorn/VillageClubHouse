@@ -1,0 +1,26 @@
+/* เปลี่ยนสีพื้นหลังของปฏิทิน */
+.flatpickr-calendar {
+    background-color: #2d3748; /* สีมืด */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* ปรับแต่งสีของวันที่ที่ถูกเลือก */
+  .flatpickr-calendar .flatpickr-day.selected {
+    background-color: #4A90E2; /* สีฟ้าที่โดดเด่น */
+    color: white;
+    border-radius: 50%;
+  }
+  
+  /* ปรับแต่งขนาดฟอนต์ */
+  .flatpickr-calendar .flatpickr-day {
+    font-size: 16px;
+  }
+  
+  /* ปรับแต่งชื่อเดือนและปี */
+  .flatpickr-calendar .flatpickr-months {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+  }
+  

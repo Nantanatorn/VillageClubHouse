@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderUserComponent } from './User/header-user/header-user.component';
+import { HeaderUserComponent } from './User/components/header-user/header-user.component';
 import { OnInit } from '@angular/core';
 import { initFlowbite } from 'flowbite';
 

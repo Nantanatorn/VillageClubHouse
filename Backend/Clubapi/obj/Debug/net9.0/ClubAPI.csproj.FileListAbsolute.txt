@@ -318,3 +318,12 @@ C:\Users\gidju\Documents\project\VillageClubHouse\Backend\Clubapi\obj\Debug\net9
 C:\Users\gidju\Documents\project\VillageClubHouse\Backend\Clubapi\obj\Debug\net9.0\Clubapi.pdb
 C:\Users\gidju\Documents\project\VillageClubHouse\Backend\Clubapi\obj\Debug\net9.0\Clubapi.genruntimeconfig.cache
 C:\Users\gidju\Documents\project\VillageClubHouse\Backend\Clubapi\obj\Debug\net9.0\ref\Clubapi.dll
+C:\Users\Chino4210\Desktop\SE project\VillageClubHouse\Backend\ClubAPI\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Chino4210\Desktop\SE project\VillageClubHouse\Backend\ClubAPI\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Chino4210\Desktop\SE project\VillageClubHouse\Backend\ClubAPI\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Chino4210\Desktop\SE project\VillageClubHouse\Backend\ClubAPI\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Chino4210\Desktop\SE project\VillageClubHouse\Backend\ClubAPI\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Chino4210\Desktop\SE project\VillageClubHouse\Backend\ClubAPI\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+C:\Users\Chino4210\Desktop\SE project\VillageClubHouse\Backend\ClubAPI\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Chino4210\Desktop\SE project\VillageClubHouse\Backend\ClubAPI\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+C:\Users\Chino4210\Desktop\SE project\VillageClubHouse\Backend\ClubAPI\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll

@@ -22,6 +22,43 @@ namespace ClubAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ClubAPI.Models.FacilitiesModel", b =>
+                {
+                    b.Property<int>("Fac_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Fac_ID"));
+
+                    b.Property<int>("Fac_Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Fac_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Fac_Empty")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Fac_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fac_Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Fac_Used")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Fac_img")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Fac_ID");
+
+                    b.ToTable("Facilities");
+                });
+
             modelBuilder.Entity("ClubAPI.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -29,6 +66,10 @@ namespace ClubAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -41,8 +82,9 @@ namespace ClubAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdCard")
-                        .HasColumnType("int");
+                    b.Property<string>("IdCard")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -56,8 +98,15 @@ namespace ClubAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Role")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
