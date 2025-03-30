@@ -1,0 +1,65 @@
+<div class="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
+      <h2 class="text-2xl font-semibold mb-4">Edit Employee</h2>
+      <form (ngSubmit)="submit()">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- ID Card (disabled, cannot edit) -->
+          <div class="mb-4">
+            <label for="idCard" class="block text-sm font-medium text-gray-700">ID Card</label>
+            <input id="idCard" type="text" [(ngModel)]="employee.idCard" name="idCard" required disabled class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- First Name -->
+          <div class="mb-4">
+            <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+            <input id="firstName" type="text" [(ngModel)]="employee.firstName" name="firstName" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Last Name -->
+          <div class="mb-4">
+            <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+            <input id="lastName" type="text" [(ngModel)]="employee.lastName" name="lastName" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Email -->
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input id="email" type="email" [(ngModel)]="employee.email" name="email" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Phone -->
+          <div class="mb-4">
+            <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+            <input id="phone" type="text" [(ngModel)]="employee.phone" name="phone" required maxlength="10" class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Position (Locked to 'Reception') -->
+          <div class="mb-4">
+            <label for="position" class="block text-sm font-medium text-gray-700">Position</label>
+            <input id="position" type="text" [(ngModel)]="employee.position" name="position" value="Reception" required disabled class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Status (Dropdown) -->
+          <div class="mb-4">
+            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+            <select id="status" [(ngModel)]="employee.status" name="status" class="mt-1 p-2 border rounded-md w-full">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+  
+          <!-- Address -->
+          <div class="mb-4">
+            <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+            <input id="address" type="text" [(ngModel)]="employee.address" name="address" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+        </div>
+  
+        <div class="flex justify-between mt-4">
+          <button type="button" (click)="close()" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
+          <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

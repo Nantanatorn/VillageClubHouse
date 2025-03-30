@@ -1,1 +1,79 @@
-<p>emp-modal works!</p>
+<div class="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
+      <h2 class="text-2xl font-semibold mb-4">Add New Employee</h2>
+  
+      <form (ngSubmit)="submit()">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- ID Card -->
+          <div class="mb-4">
+            <label for="idCard" class="block text-sm font-medium text-gray-700">ID Card</label>
+            <input id="idCard" type="text" [(ngModel)]="newEmployee.idCard" name="idCard" required maxlength="13" class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- First Name -->
+          <div class="mb-4">
+            <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+            <input id="firstName" type="text" [(ngModel)]="newEmployee.firstName" name="firstName" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Last Name -->
+          <div class="mb-4">
+            <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+            <input id="lastName" type="text" [(ngModel)]="newEmployee.lastName" name="lastName" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Email -->
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input id="email" type="email" [(ngModel)]="newEmployee.email" name="email" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Phone -->
+          <div class="mb-4">
+            <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+            <input id="phone" type="text" [(ngModel)]="newEmployee.phone" name="phone" required maxlength="10" class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Password -->
+          <div class="mb-4">
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input id="password" type="password" [(ngModel)]="newEmployee.password" name="password" value="123456" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Position (Locked to 'Reception') -->
+          <div class="mb-4">
+            <label for="position" class="block text-sm font-medium text-gray-700">Position</label>
+            <input id="position" type="text" [(ngModel)]="newEmployee.position" name="position" value="Reception" required disabled class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Date of Birth (New Field) -->
+          <div class="mb-4">
+            <label for="birthDate" class="block text-sm font-medium text-gray-700">Date of Birth</label>
+            <div class="relative max-w-sm">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg>
+              </div>
+              <input id="birthDate" type="text" datepicker [(ngModel)]="newEmployee.birthDate" name="birthDate" placeholder="Select date"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+            </div>
+          </div>
+  
+          <!-- Address -->
+          <div class="mb-4">
+            <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+            <input id="address" type="text" [(ngModel)]="newEmployee.address" name="address" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+        </div>
+  
+        <div *ngIf="errorMessage" class="text-red-600 text-sm mb-4">{{ errorMessage }}</div>
+  
+        <div class="flex justify-between mt-4">
+          <button type="button" (click)="close()" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
+          <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md">Add Employee</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -89,6 +89,7 @@ public class EmployeeController : ControllerBase {
             .Where(u => u.Role == "staff") // ✅ กรองเฉพาะผู้ใช้ที่มี Role = "staff"
             .Select(u => new
             {
+                u.Id,
                 u.IdCard,
                 u.FirstName,
                 u.LastName,
@@ -111,13 +112,43 @@ public class EmployeeController : ControllerBase {
         return Ok(users);
     }
 
+    [HttpGet("employee/{id}")]
+public async Task<IActionResult> GetEmployeeById(int id)
+{
+    // ค้นหาพนักงานจาก Id
+    var user = await _context.Users
+        .Where(u => u.Id == id && u.Role == "staff")  // ค้นหาโดยใช้ Role = "staff" และ Id
+        .Select(u => new
+        {
+            u.Id,
+            u.IdCard,
+            u.FirstName,
+            u.LastName,
+            u.Email,
+            u.Phone,
+            u.Role,
+            u.Position,
+            u.Address,
+            u.Status,
+            u.BirthDate
+        })
+        .FirstOrDefaultAsync();  // ดึงแค่พนักงานคนเดียวตาม id
 
-        [HttpPut("edit-employee")]
-    public async Task<IActionResult> EditEmployee([FromBody] AddEmpModel model)
+    if (user == null)
     {
-        // ค้นหาพนักงานจากชื่อและนามสกุล
-        var existingUser = await _context.Users
-            .FirstOrDefaultAsync(u => u.FirstName == model.FirstName && u.LastName == model.LastName);
+        return NotFound(new { message = "ไม่พบพนักงานที่มี id นี้ หรือไม่ใช่ Role 'staff'" });
+    }
+
+    return Ok(user);
+}
+
+
+
+    [HttpPut("edit-employee/{id}")]
+    public async Task<IActionResult> EditEmployee(int id, [FromBody] AddEmpModel model)
+    {
+        // ค้นหาพนักงานจาก id
+        var existingUser = await _context.Users.FindAsync(id);
 
         if (existingUser == null)
         {
@@ -154,7 +185,6 @@ public class EmployeeController : ControllerBase {
         existingUser.Position = model.Position;
         existingUser.Address = model.Address;
         existingUser.Status = model.Status ?? existingUser.Status; // ถ้าไม่ได้ระบุ Status จะใช้ค่าเดิม
-        existingUser.Password = passwordHash; // ใช้รหัสผ่านใหม่ถ้ามีการเปลี่ยนแปลง
 
         // บันทึกการเปลี่ยนแปลง
         _context.Users.Update(existingUser);
@@ -165,12 +195,11 @@ public class EmployeeController : ControllerBase {
 
 
 
-    [HttpDelete("delete-employee")]
-    public async Task<IActionResult> DeleteEmployee([FromBody] AddEmpModel model)
+    [HttpDelete("delete-employee/{id}")]
+    public async Task<IActionResult> DeleteEmployee(int id)
     {
-        // ค้นหาพนักงานจากชื่อและนามสกุล
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.FirstName == model.FirstName && u.LastName == model.LastName);
+        // ค้นหาพนักงานจาก id
+        var user = await _context.Users.FindAsync(id);
 
         if (user == null)
         {
@@ -183,6 +212,7 @@ public class EmployeeController : ControllerBase {
 
         return Ok(new { message = "พนักงานถูกลบเรียบร้อยแล้ว" });
     }
+
 
 
 

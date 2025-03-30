@@ -26,6 +26,7 @@ import { FacilityComponent } from './Admin/pages/facility/facility.component';
 import { FooterComponent } from './User/components/footer/footer.component';
 import { HeaderUserComponent } from './User/components/header-user/header-user.component';
 import { EmpModalComponent } from './Admin/components/emp-modal/emp-modal.component';
+import { EmpEditModalComponent } from './Admin/components/emp-edit-modal/emp-edit-modal.component';
 
 
 
@@ -47,6 +48,7 @@ import { EmpModalComponent } from './Admin/components/emp-modal/emp-modal.compon
     FooterComponent,
     EditProfileComponent,
     EmpModalComponent,
+    EmpEditModalComponent,
   
     
     
