@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Book Title Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editBookTitleLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Book Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editBookTitleInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Publish Year Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editPublishYearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Publish Year"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editBookTitleLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editPublishYearInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="4"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- ISBN Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editIsbnLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="ISBN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editPublishYearLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editIsbnInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="13"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Author Spinner (AutoCompleteTextView) -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editAuthorSpinnerLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Select Author"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editIsbnLayout">
+
+        <AutoCompleteTextView
+            android:id="@+id/editAuthorSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:contentDescription="Select an author from the list" /> <!-- Added contentDescription -->
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <!-- Purchase Date Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editPurchaseDateLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Purchase Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editAuthorSpinnerLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editPurchaseDateInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:minHeight="48dp" /> <!-- Set minHeight for accessibility -->
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
