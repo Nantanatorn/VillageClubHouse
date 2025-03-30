@@ -4921,11 +4921,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\ClubAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
       "projectName": "ClubAPI",
-      "projectPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\ClubAPI.csproj",
+      "projectPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
       "packagesPath": "C:\\Users\\Chino4210\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\ClubAPI\\obj\\",
+      "outputPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Chino4210\\AppData\\Roaming\\NuGet\\NuGet.Config"

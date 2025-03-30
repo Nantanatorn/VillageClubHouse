@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj": {}
+    "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj": {
+    "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj",
-        "projectName": "Clubapi",
-        "projectPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj",
+        "projectUniqueName": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
+        "projectName": "ClubAPI",
+        "projectPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
         "packagesPath": "C:\\Users\\Chino4210\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Chino4210\\Desktop\\SE project\\VillageClubHouse\\Backend\\Clubapi\\obj\\",
         "projectStyle": "PackageReference",

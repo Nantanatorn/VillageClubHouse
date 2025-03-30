@@ -1,110 +1,111 @@
 <div class="flex h-screen">
-  <!-- ✅ Sidebar -->
-  <app-adminsidebar></app-adminsidebar>
-
-  <!-- ✅ Main Content -->
-  <div class="flex-1 flex flex-col h-screen bg-gray-100 p-6 space-y-6">
-      <!-- 🔹 Header -->
-      <div class="flex justify-between items-center bg-white text-blue-900 p-5 rounded-xl shadow-lg">
-          <div class="flex items-center space-x-3">
-              <input type="text"  placeholder="Search..." 
-                     class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-teal-300">
-              <button (click)="performSearch()" 
-                      class="bg-teal-500 px-4 py-2 rounded-lg shadow-md hover:bg-teal-600">
-                  🔍 Search
-              </button>
-          </div>
-      </div>
-
-      <!-- 🔹 Key Statistics -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="bg-white p-6 rounded-lg shadow-md text-center">
-              <p class="text-3xl font-semibold">Number of Facility</p>
-              <p class="text-3xl font-bold text-blue-600">{{ facilities.length }}</p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-md text-center">
-              <p class="text-3xl font-semibold">Active Facility</p>
-              <p class="text-3xl font-bold text-green-600">{{ activeFacilityCount }}</p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-md text-center">
-              <p class="text-3xl font-semibold">Inactive Facility</p>
-              <p class="text-3xl font-bold text-red-600">{{ inactiveFacilityCount }}</p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-md text-center">
-              <p class="text-3xl font-semibold">Add Facility</p>
-              <button (click)="toggleModal()" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Facility</button>
-          </div>
-      </div>
-
-      <!-- 🔹 Facility List -->
-      <div class="bg-white p-6 rounded-xl shadow-lg text-blue-900">
-          <p class="text-2xl font-semibold mb-4">📅 All Facilities</p>
-          <table class="w-full border-collapse rounded-lg overflow-hidden">
-              <thead>
-                  <tr class="bg-blue-500 text-white">
-                      <th class="p-3 text-left">Name</th>
-                      <th class="p-3 text-left">Status</th>
-                      <th class="p-3 text-left">Capacity</th>
-                      <th class="p-3 text-left">Used</th>
-                      <th class="p-3 text-left">Empty</th>
-                      <th class="p-3 text-left">Edit</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr class="border-b hover:bg-gray-100" *ngFor="let facility of facilities">
-                      <td class="p-3">{{ facility.fac_Name }}</td>
-                      <td class="p-3">{{ facility.fac_Status }}</td>
-                      <td class="p-3">{{ facility.fac_Capacity }}</td>
-                      <td class="p-3">{{ facility.fac_Used }}</td>
-                      <td class="p-3">{{ facility.fac_Empty }}</td>
-                      <td class="p-3">
-                          <button type="button" (click)="toggleEditModal(facility)" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Edit</button>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
+    <!-- ✅ Sidebar -->
+    <app-adminsidebar></app-adminsidebar>
+  
+    <!-- ✅ Main Content -->
+    <div class="flex-1 flex flex-col h-screen bg-gray-100 p-6 space-y-6">
+        <!-- 🔹 Header -->
+        <div class="flex justify-between items-center bg-white text-blue-900 p-5 rounded-xl shadow-lg">
+            <div class="flex items-center space-x-3">
+                <input type="text"  placeholder="Search..." 
+                       class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-teal-300">
+                <button (click)="performSearch()" 
+                        class="bg-teal-500 px-4 py-2 rounded-lg shadow-md hover:bg-teal-600">
+                    🔍 Search
+                </button>
+            </div>
+        </div>
+  
+        <!-- 🔹 Key Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <p class="text-3xl font-semibold">Number of Facility</p>
+                <p class="text-3xl font-bold text-blue-600">{{ facilities.length }}</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <p class="text-3xl font-semibold">Active Facility</p>
+                <p class="text-3xl font-bold text-green-600">{{ activeFacilityCount }}</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <p class="text-3xl font-semibold">Inactive Facility</p>
+                <p class="text-3xl font-bold text-red-600">{{ inactiveFacilityCount }}</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <p class="text-3xl font-semibold">Add Facility</p>
+                <button (click)="toggleModal()" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Facility</button>
+            </div>
+        </div>
+  
+        <!-- 🔹 Facility List -->
+        <div class="bg-white p-6 rounded-xl shadow-lg text-blue-900">
+            <p class="text-2xl font-semibold mb-4">📅 All Facilities</p>
+            <table class="w-full border-collapse rounded-lg overflow-hidden">
+                <thead>
+                    <tr class="bg-blue-500 text-white">
+                        <th class="p-3 text-left">Name</th>
+                        <th class="p-3 text-left">Status</th>
+                        <th class="p-3 text-left">Capacity</th>
+                        <th class="p-3 text-left">Used</th>
+                        <th class="p-3 text-left">Empty</th>
+                        <th class="p-3 text-left">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b hover:bg-gray-100" *ngFor="let facility of facilities">
+                        <td class="p-3">{{ facility.fac_Name }}</td>
+                        <td class="p-3">{{ facility.fac_Status }}</td>
+                        <td class="p-3">{{ facility.fac_Capacity }}</td>
+                        <td class="p-3">{{ facility.fac_Used }}</td>
+                        <td class="p-3">{{ facility.fac_Empty }}</td>
+                        <td class="p-3">
+                            <button type="button" (click)="toggleEditModal(facility)" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
   </div>
-</div>
-
-<!-- Modal for editing facility -->
-<div *ngIf="showEditModal" class="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
-    <h2 class="text-2xl font-semibold mb-4">Edit Facility</h2>
-    <form (ngSubmit)="editFacility()">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- Facility Name -->
-        <div class="mb-4">
-          <label for="fac_Name" class="block text-sm font-medium text-gray-700">Facility Name</label>
-          <input id="fac_Name" type="text" [(ngModel)]="selectedFacility.fac_Name" name="fac_Name" required class="mt-1 p-2 border rounded-md w-full"/>
+  
+  <!-- Modal for editing facility -->
+  <div *ngIf="showEditModal" class="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
+      <h2 class="text-2xl font-semibold mb-4">Edit Facility</h2>
+      <form (ngSubmit)="editFacility()">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Facility Name -->
+          <div class="mb-4">
+            <label for="fac_Name" class="block text-sm font-medium text-gray-700">Facility Name</label>
+            <input id="fac_Name" type="text" [(ngModel)]="selectedFacility.fac_Name" name="fac_Name" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Facility Description -->
+          <div class="mb-4">
+            <label for="fac_Description" class="block text-sm font-medium text-gray-700">Description</label>
+            <input id="fac_Description" type="text" [(ngModel)]="selectedFacility.fac_Description" name="fac_Description" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Facility Capacity -->
+          <div class="mb-4">
+            <label for="fac_Capacity" class="block text-sm font-medium text-gray-700">Capacity</label>
+            <input id="fac_Capacity" type="number" [(ngModel)]="selectedFacility.fac_Capacity" name="fac_Capacity" required class="mt-1 p-2 border rounded-md w-full"/>
+          </div>
+  
+          <!-- Facility Status (Dropdown) -->
+          <div class="mb-4">
+            <label for="fac_Status" class="block text-sm font-medium text-gray-700">Status</label>
+            <select id="fac_Status" [(ngModel)]="selectedFacility.fac_Status" name="fac_Status" required class="mt-1 p-2 border rounded-md w-full">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
         </div>
-
-        <!-- Facility Description -->
-        <div class="mb-4">
-          <label for="fac_Description" class="block text-sm font-medium text-gray-700">Description</label>
-          <input id="fac_Description" type="text" [(ngModel)]="selectedFacility.fac_Description" name="fac_Description" required class="mt-1 p-2 border rounded-md w-full"/>
+  
+        <div class="flex justify-between mt-4">
+          <button type="button" (click)="toggleEditModal(selectedFacility)" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
+          <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md">Save Changes</button>
         </div>
-
-        <!-- Facility Capacity -->
-        <div class="mb-4">
-          <label for="fac_Capacity" class="block text-sm font-medium text-gray-700">Capacity</label>
-          <input id="fac_Capacity" type="number" [(ngModel)]="selectedFacility.fac_Capacity" name="fac_Capacity" required class="mt-1 p-2 border rounded-md w-full"/>
-        </div>
-
-        <!-- Facility Status (Dropdown) -->
-        <div class="mb-4">
-          <label for="fac_Status" class="block text-sm font-medium text-gray-700">Status</label>
-          <select id="fac_Status" [(ngModel)]="selectedFacility.fac_Status" name="fac_Status" required class="mt-1 p-2 border rounded-md w-full">
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="flex justify-between mt-4">
-        <button type="button" (click)="toggleEditModal(selectedFacility)" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
-        <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md">Save Changes</button>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
+  

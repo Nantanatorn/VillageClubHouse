@@ -59,97 +59,6 @@ namespace ClubAPI.Migrations
                     b.ToTable("Facilities");
                 });
 
-            modelBuilder.Entity("ClubAPI.Models.PaymentModel", b =>
-                {
-                    b.Property<int>("Pay_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Pay_ID"));
-
-                    b.Property<decimal>("Pay_Amount")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<DateTime>("Pay_Date")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Pay_Method")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Pay_Slip")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Pay_Status")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<int>("R_id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("Verified_At")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Verified_By")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("Pay_ID");
-
-                    b.HasIndex("R_id");
-
-                    b.ToTable("Payments");
-                });
-
-            modelBuilder.Entity("ClubAPI.Models.ReservationModel", b =>
-                {
-                    b.Property<int>("R_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("R_id"));
-
-                    b.Property<int>("Fac_ID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("R_CreatedAt")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime>("R_Date")
-                        .HasColumnType("datetime");
-
-                    b.Property<int>("R_Duration")
-                        .HasColumnType("int");
-
-                    b.Property<string>("R_Note")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("R_Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("R_Time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("R_UpdatedAt")
-                        .HasColumnType("datetime");
-
-                    b.HasKey("R_id");
-
-                    b.HasIndex("Fac_ID");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("Reservations");
-                });
-
             modelBuilder.Entity("ClubAPI.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -203,36 +112,6 @@ namespace ClubAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ClubAPI.Models.PaymentModel", b =>
-                {
-                    b.HasOne("ClubAPI.Models.ReservationModel", "Reservations")
-                        .WithMany()
-                        .HasForeignKey("R_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("ClubAPI.Models.ReservationModel", b =>
-                {
-                    b.HasOne("ClubAPI.Models.FacilitiesModel", "Facility")
-                        .WithMany()
-                        .HasForeignKey("Fac_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ClubAPI.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Facility");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
