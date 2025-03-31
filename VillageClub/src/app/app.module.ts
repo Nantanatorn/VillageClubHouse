@@ -28,6 +28,7 @@ import { FooterComponent } from './User/components/footer/footer.component';
 import { DashboardComponent } from './staff/page/dashboard/dashboard.component';
 import { EditUserComponent } from './staff/page/edit-user/edit-user.component';
 import { StaffSidebarComponent } from './staff/components/staff-sidebar/staff-sidebar.component';
+import { HistoryReservationComponent } from './User/pages/history-reservation/history-reservation.component';
 
 // คอมโพเนนต์ที่อยู่ในไฟล์ที่หนึ่ง
 import { EmpModalComponent } from './Admin/components/emp-modal/emp-modal.component';
@@ -52,8 +53,13 @@ import { EmpEditModalComponent } from './Admin/components/emp-edit-modal/emp-edi
     DashboardComponent,
     EditUserComponent,
     StaffSidebarComponent,
+<<<<<<< HEAD
+    HistoryReservationComponent
+    
+=======
     EmpModalComponent,
     EmpEditModalComponent
+>>>>>>> 81aea2131e3dec3c5941e6119a3261829f8884b9
   ],
   imports: [
     BrowserModule,

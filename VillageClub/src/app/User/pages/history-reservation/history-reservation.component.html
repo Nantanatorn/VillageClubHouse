@@ -1,0 +1,116 @@
+<app-header-user></app-header-user>
+
+
+<div class="container mx-auto px-4 py-10 mt-16">
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                   ลำดับ
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    ชื่อสถานที่
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    วันที่จอง
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    เวลาเริ่ม
+                </th>
+                
+                <th scope="col" class="px-6 py-3">
+                    สถานะ
+                </th>
+                
+                <th scope="col" class="px-6 py-3">
+                    แก้ไข
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr  *ngFor="let r of reservations" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                
+                <td class="px-6 py-4">
+                    {{ r.id }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ r.facility }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ r.date }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ r.time }}
+                </td>
+                
+                <td class="px-6 py-4">
+                    <span [ngClass]="{
+                        'text-yellow-600 font-semibold': r.status === 'รออนุมัติ',
+                        'text-green-600 font-semibold': r.status === 'อนุมัติแล้ว',
+                        'text-red-600 font-semibold': r.status === 'ไม่อนุมัติ'
+                      }">
+                        {{ r.status }}
+                      </span>
+                </td>
+                
+                <td class="px-6 py-4">
+                    <a  (click)="openEditModal(r)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                </td>
+            </tr>
+           
+        </tbody>
+    </table>
+</div>
+  </div>
+
+
+
+  <!-- Modal -->
+<div 
+*ngIf="editReservation" 
+class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl p-6">
+  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">แก้ไขประวัติการจอง</h3>
+  
+  <form class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">ชื่อสถานที่</label>
+      <select [(ngModel)]="editReservation.facility" name="facility" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:text-white">
+        <option disabled value="">-- เลือกสถานที่ --</option>
+        <option>ฟิตเนส</option>
+        <option>สระว่ายน้ำ</option>
+        <option>ห้องจัดเลี้ยง</option>
+        <option>สนามเทนนิส</option>
+        <option>สนามแบตมินตัน</option>
+        <option>สนามฟุตบอล</option>
+      </select>
+      
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">วันที่จอง</label>
+      <input type="date" [(ngModel)]="editReservation.date" name="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:text-white" />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">เวลาเริ่ม</label>
+      <input type="time" [(ngModel)]="editReservation.time" name="time" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:text-white" />
+    </div>
+    
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">สถานะ</label>
+      <input
+      type="text"
+      [value]="editReservation.status"
+      readonly
+      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-white cursor-not-allowed"
+    />
+    </div>
+    
+  </form>
+
+  <div class="mt-6 flex justify-end space-x-2">
+    <button (click)="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">ยกเลิก</button>
+    <button (click)="saveEdit()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">บันทึก</button>
+  </div>
+</div>
+</div>
