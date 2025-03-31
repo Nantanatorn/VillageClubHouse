@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj": {}
+    "c:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj": {
+    "c:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
-        "projectName": "ClubAPI",
-        "projectPath": "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
+        "projectUniqueName": "c:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj",
+        "projectName": "Clubapi",
+        "projectPath": "c:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj",
         "packagesPath": "C:\\Users\\gidju\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\obj\\",
+        "outputPath": "c:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gidju\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -25,6 +25,7 @@ import { FooterComponent } from './User/components/footer/footer.component';
 import { DashboardComponent } from './staff/page/dashboard/dashboard.component';
 import { EditUserComponent } from './staff/page/edit-user/edit-user.component';
 import { StaffSidebarComponent } from './staff/components/staff-sidebar/staff-sidebar.component';
+import { HistoryReservationComponent } from './User/pages/history-reservation/history-reservation.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { StaffSidebarComponent } from './staff/components/staff-sidebar/staff-si
     FooterComponent,
     DashboardComponent,
     EditUserComponent,
-    StaffSidebarComponent
+    StaffSidebarComponent,
+    HistoryReservationComponent
     
   ],
   imports: [

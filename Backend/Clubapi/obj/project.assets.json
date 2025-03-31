@@ -4921,11 +4921,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
-      "projectName": "ClubAPI",
-      "projectPath": "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\ClubAPI.csproj",
+      "projectUniqueName": "c:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj",
+      "projectName": "Clubapi",
+      "projectPath": "c:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\Clubapi.csproj",
       "packagesPath": "C:\\Users\\gidju\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\obj\\",
+      "outputPath": "c:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gidju\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5017,13 +5017,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\gidju\\Documents\\project\\VillageClubHouse\\Backend\\Clubapi\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

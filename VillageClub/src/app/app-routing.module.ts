@@ -14,6 +14,7 @@ import { EmployeeManageComponent } from './Admin/pages/employee-manage/employee-
 import { FacilityComponent } from './Admin/pages/facility/facility.component';
 import { DashboardComponent } from './staff/page/dashboard/dashboard.component';
 import { StaffLoginComponent } from './staff/page/staff-login/staff-login.component';
+import { HistoryReservationComponent } from './User/pages/history-reservation/history-reservation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, 
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:'status',component:StatusComponent},
   {path:'booknow',component:BooknowComponent},
   {path:'dropdown',component:DropdownComponent},
+  {path:'history',component:HistoryReservationComponent},
   //admin page
   {path:'admin',component:LoginAdminComponent},
   {path:'adminhome',component:AdminhomeComponent},

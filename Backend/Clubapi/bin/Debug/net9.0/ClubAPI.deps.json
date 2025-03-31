@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "ClubAPI/1.0.0": {
+      "Clubapi/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "9.0.2",
           "Microsoft.AspNetCore.OpenApi": "9.0.2",
@@ -18,7 +18,7 @@
           "dotenv.net": "3.2.1"
         },
         "runtime": {
-          "ClubAPI.dll": {}
+          "Clubapi.dll": {}
         }
       },
       "Azure.Core/1.38.0": {
@@ -1057,7 +1057,7 @@
     }
   },
   "libraries": {
-    "ClubAPI/1.0.0": {
+    "Clubapi/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
