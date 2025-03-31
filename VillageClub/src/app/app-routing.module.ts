@@ -27,13 +27,13 @@ const routes: Routes = [
   {path:'dropdown',component:DropdownComponent},
   {path:'history',component:HistoryReservationComponent},
   //admin page
-  {path:'admin',component:LoginAdminComponent},
+  // {path:'admin',component:LoginAdminComponent},
   {path:'adminhome',component:AdminhomeComponent},
   {path:'employee-manage',component:EmployeeManageComponent},
   {path:'facility',component:FacilityComponent},
 
   //staffpage
-  {path:'staff',component:StaffLoginComponent},
+  // {path:'staff',component:StaffLoginComponent},
   {path:'dashboard',component:DashboardComponent},
   {path:'editUser',component:EditUserComponent}
 

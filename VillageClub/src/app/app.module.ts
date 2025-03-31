@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { LoginUserComponent } from './User/pages/login-user/login-user.component';
 import { HeaderUserComponent } from './User/components/header-user/header-user.component';
 import { HomeComponent } from './User/pages/home/home.component';
@@ -22,10 +23,16 @@ import { AdminsidebarComponent } from './Admin/components/adminsidebar/adminside
 import { BooknowComponent } from './User/components/booknow/booknow.component';
 import { DropdownComponent } from './User/components/dropdown/dropdown.component';
 import { FooterComponent } from './User/components/footer/footer.component';
+
+// คอมโพเนนต์ที่อยู่ในไฟล์ที่สอง
 import { DashboardComponent } from './staff/page/dashboard/dashboard.component';
 import { EditUserComponent } from './staff/page/edit-user/edit-user.component';
 import { StaffSidebarComponent } from './staff/components/staff-sidebar/staff-sidebar.component';
 import { HistoryReservationComponent } from './User/pages/history-reservation/history-reservation.component';
+
+// คอมโพเนนต์ที่อยู่ในไฟล์ที่หนึ่ง
+import { EmpModalComponent } from './Admin/components/emp-modal/emp-modal.component';
+import { EmpEditModalComponent } from './Admin/components/emp-edit-modal/emp-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +53,13 @@ import { HistoryReservationComponent } from './User/pages/history-reservation/hi
     DashboardComponent,
     EditUserComponent,
     StaffSidebarComponent,
+<<<<<<< HEAD
     HistoryReservationComponent
     
+=======
+    EmpModalComponent,
+    EmpEditModalComponent
+>>>>>>> 81aea2131e3dec3c5941e6119a3261829f8884b9
   ],
   imports: [
     BrowserModule,

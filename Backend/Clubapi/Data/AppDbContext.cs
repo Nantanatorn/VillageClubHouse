@@ -10,5 +10,7 @@ public class AppDbContext : DbContext
 
     public DbSet<User> Users { get; set; }  
     public DbSet<FacilitiesModel> Facilities { get; set; }
+    public DbSet<ReservationModel> Reservations { get; set; }
+    public DbSet<PaymentModel> Payments { get; set; }  // Add this line to include the Payment model
     
 }

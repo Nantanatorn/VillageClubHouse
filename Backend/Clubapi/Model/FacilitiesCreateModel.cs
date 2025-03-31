@@ -10,4 +10,5 @@ public class FacilitiesCreateModel
 
     [Required]
     public int Fac_Capacity { get; set; }
+    public string Fac_Status { get; set; } = "Available";
 }
