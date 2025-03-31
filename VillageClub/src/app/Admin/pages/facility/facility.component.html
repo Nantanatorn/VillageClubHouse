@@ -32,7 +32,7 @@
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md text-center">
                 <p class="text-3xl font-semibold">Add Facility</p>
-                <button (click)="toggleModal()" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Facility</button>
+                <button (click)="toggleAddModal()" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Facility</button>
             </div>
         </div>
   
@@ -48,6 +48,7 @@
                         <th class="p-3 text-left">Used</th>
                         <th class="p-3 text-left">Empty</th>
                         <th class="p-3 text-left">Edit</th>
+                        <th class="p-3 text-left">Time Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,6 +61,9 @@
                         <td class="p-3">
                             <button type="button" (click)="toggleEditModal(facility)" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Edit</button>
                         </td>
+                        <td class="p-3">
+                          <button type="button" (click)="toggleTimeEditModal(facility)" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Time</button>
+                      </td>
                     </tr>
                 </tbody>
             </table>
@@ -108,4 +112,96 @@
       </form>
     </div>
   </div>
+
+  <div *ngIf="showEditModal1" class="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-3xl w-full">
+      <h2 class="text-2xl font-semibold mb-4">Edit Time for {{ selectedFacility?.fac_Name }}</h2>
+      
+      <div class="space-y-4">
+        <div *ngFor="let slot of editableTimeSlots; let i = index" class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+          
+          <input *ngIf="!slot.editing" [value]="slot.label" class="p-2 border rounded-md w-full bg-gray-100 cursor-pointer" readonly (click)="slot.editing = true"/>
+        <div *ngIf="slot.editing" class="flex gap-2">
+          <input type="time" [(ngModel)]="slot.start" (change)="updateLabel(slot)" step="3600" class="p-2 border rounded-md w-full"/>
+          <input type="time" [(ngModel)]="slot.end" (change)="updateLabel(slot)" step="3600" class="p-2 border rounded-md w-full"/>
+
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" [(ngModel)]="slot.isAvailable" name="available{{i}}" />
+            <span>Available</span>
+          </label>
+  
+          <div class="flex gap-2">
+            <button *ngIf="slot.slot_ID" (click)="editTimeSlot(slot)"  (click)="slot.editing = false" class="text-blue-600 hover:underline">Save</button>
+            <button *ngIf="!slot.slot_ID" (click)="addTimeSlotToDB(slot)" class="text-green-600 hover:underline">Add</button>
+            <button *ngIf="slot.slot_ID" (click)="deleteTimeSlot(slot.slot_ID)" class="text-red-500 hover:underline">Delete</button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="mt-4">
+        <button type="button" (click)="addTimeSlot()" class="text-blue-600 hover:underline">
+          + Add Time Slot
+        </button>
+      </div>
+  
+      <div class="flex justify-between mt-6">
+        <button type="button" (click)="toggleTimeEditModal(selectedFacility)" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="showAddModal" class="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
+      <h2 class="text-2xl font-semibold mb-4">Add Facility</h2>
+  
+      <form #addForm="ngForm" (ngSubmit)="addFacility()">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Facility Name -->
+          <div class="mb-4">
+            <label for="new_fac_Name" class="block text-sm font-medium text-gray-700">Facility Name</label>
+            <input id="new_fac_Name" type="text"
+              [(ngModel)]="newFacility.fac_Name" name="new_fac_Name"
+              required class="mt-1 p-2 border rounded-md w-full" [ngModelOptions]="{standalone: true}" />
+          </div>
+  
+          <!-- Facility Description -->
+          <div class="mb-4">
+            <label for="new_fac_Description" class="block text-sm font-medium text-gray-700">Description</label>
+            <input id="new_fac_Description" type="text"
+              [(ngModel)]="newFacility.fac_Description" name="new_fac_Description"
+              required class="mt-1 p-2 border rounded-md w-full" [ngModelOptions]="{standalone: true}" />
+          </div>
+  
+          <!-- Facility Capacity -->
+          <div class="mb-4">
+            <label for="new_fac_Capacity" class="block text-sm font-medium text-gray-700">Capacity</label>
+            <input id="new_fac_Capacity" type="number"
+              [(ngModel)]="newFacility.fac_Capacity" name="new_fac_Capacity"
+              required class="mt-1 p-2 border rounded-md w-full" [ngModelOptions]="{standalone: true}" />
+          </div>
+  
+          <!-- Facility Status -->
+          <div class="mb-4">
+            <label for="new_fac_Status" class="block text-sm font-medium text-gray-700">Status</label>
+            <select id="new_fac_Status"
+              [(ngModel)]="newFacility.fac_Status" name="new_fac_Status"
+              required class="mt-1 p-2 border rounded-md w-full" [ngModelOptions]="{standalone: true}">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="flex justify-between mt-4">
+          <button type="button" (click)="toggleAddModal()" class="bg-gray-500 text-white px-4 py-2 rounded-md">
+            Cancel
+          </button>
+          <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md">
+            Add Facility
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
   

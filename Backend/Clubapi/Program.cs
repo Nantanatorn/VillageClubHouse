@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using dotenv.net;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,12 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+
+        // ❌ อย่าใช้ Authority หรือ Metadata
+        // options.Authority = "https://your-auth.com"; <- ห้ามใส่!
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -54,10 +61,29 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtIssuer,
             ValidAudience = jwtAudience,
-            IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
-            RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)), // 🔑 สำคัญมาก!
+            RoleClaimType = ClaimTypes.Role,
+            NameClaimType = ClaimTypes.Name,
+
         };
-    });
+
+    // ✅ เพิ่ม Event Logging
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine("❌ JWT Authentication Failed:");
+            Console.WriteLine(context.Exception.ToString());
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = context =>
+        {
+            Console.WriteLine("✅ JWT Token Validated!");
+            Console.WriteLine("User: " + context.Principal?.Identity?.Name);
+            return Task.CompletedTask;
+        }
+    };
+});
 
 // ตั้งค่า Database Connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

@@ -31,8 +31,6 @@ public class ReservationModel
 
     public int R_Duration { get; set; } = 1;
 
-    [StringLength(255)]
-    public string? R_Note { get; set; }
 
     // ✅ ความสัมพันธ์แบบ Foreign Key
     [ForeignKey("Id")]

@@ -160,6 +160,7 @@ public class UserController : ControllerBase
         user.FirstName = model.FirstName;
         user.LastName = model.LastName;
         user.Phone = model.Phone;
+        user.Email = model.Email;
         
         if (model.BirthDate.HasValue)
         {
@@ -212,4 +213,22 @@ public class UserController : ControllerBase
 
         return Ok(users);
     }
+
+
+        [HttpGet("whoami")]
+[Authorize]
+public IActionResult WhoAmI()
+{
+    var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    var name = User.FindFirst(ClaimTypes.Name)?.Value;
+    var email = User.FindFirst(ClaimTypes.Email)?.Value;
+    var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+    return Ok(new {
+        id,
+        name,
+        email,
+        role
+    });
+}
 }

@@ -23,6 +23,7 @@ public class FacilitiesCOntroller : ControllerBase {
         _config = config;
     }
 
+
     [HttpGet("getFacilities")]
     public async Task<IActionResult> GetFacilities()
     {
@@ -99,51 +100,120 @@ public class FacilitiesCOntroller : ControllerBase {
     }
 
     [HttpPut("editFacility/{id}")]
-public async Task<IActionResult> EditFacility(int id, [FromBody] FacilitiesCreateModel model)
-{
-    try
+    public async Task<IActionResult> EditFacility(int id, [FromBody] FacilitiesCreateModel model)
     {
-        // ตรวจสอบว่าได้รับข้อมูลที่ต้องการหรือไม่
-        if (string.IsNullOrWhiteSpace(model.Fac_Name) || string.IsNullOrWhiteSpace(model.Fac_Description) || model.Fac_Capacity <= 0)
+        try
         {
-            return BadRequest(new { message = "ข้อมูลไม่ครบถ้วนหรือไม่ถูกต้อง" });
+            // ตรวจสอบว่าได้รับข้อมูลที่ต้องการหรือไม่
+            if (string.IsNullOrWhiteSpace(model.Fac_Name) || string.IsNullOrWhiteSpace(model.Fac_Description) || model.Fac_Capacity <= 0)
+            {
+                return BadRequest(new { message = "ข้อมูลไม่ครบถ้วนหรือไม่ถูกต้อง" });
+            }
+
+            // ค้นหา Facility ที่จะอัปเดต
+            var facility = await _context.Facilities.FindAsync(id);
+
+            if (facility == null)
+            {
+                return NotFound(new { message = "ไม่พบข้อมูล Facility ที่ต้องการแก้ไข" });
+            }
+
+            // แก้ไขข้อมูล Facility
+            facility.Fac_Name = model.Fac_Name;
+            facility.Fac_Description = model.Fac_Description;
+            facility.Fac_Capacity = model.Fac_Capacity;
+            facility.Fac_Empty = model.Fac_Capacity; // อัปเดตจำนวนที่ว่าง
+            facility.Fac_Used = 0; // หรือจะตั้งค่าใหม่ตามความต้องการ
+
+            // ถ้ามีการระบุ status ใน model ให้ปรับปรุง
+            if (!string.IsNullOrWhiteSpace(model.Fac_Status))
+            {
+                facility.Fac_Status = model.Fac_Status; // แก้ไข status
+            }
+
+            // บันทึกการแก้ไข
+            _context.Facilities.Update(facility);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "แก้ไขข้อมูล Facility สำเร็จ", facility });
         }
-
-        // ค้นหา Facility ที่จะอัปเดต
-        var facility = await _context.Facilities.FindAsync(id);
-
-        if (facility == null)
+        catch (Exception ex)
         {
-            return NotFound(new { message = "ไม่พบข้อมูล Facility ที่ต้องการแก้ไข" });
+            // ถ้ามีข้อผิดพลาดในการอัปเดต
+            return StatusCode(500, new { message = "เกิดข้อผิดพลาดในการแก้ไขข้อมูล Facility", error = ex.Message });
         }
+    }
 
-        // แก้ไขข้อมูล Facility
-        facility.Fac_Name = model.Fac_Name;
-        facility.Fac_Description = model.Fac_Description;
-        facility.Fac_Capacity = model.Fac_Capacity;
-        facility.Fac_Empty = model.Fac_Capacity; // อัปเดตจำนวนที่ว่าง
-        facility.Fac_Used = 0; // หรือจะตั้งค่าใหม่ตามความต้องการ
+    // TimeSlot Management
 
-        // ถ้ามีการระบุ status ใน model ให้ปรับปรุง
-        if (!string.IsNullOrWhiteSpace(model.Fac_Status))
-        {
-            facility.Fac_Status = model.Fac_Status; // แก้ไข status
-        }
 
-        // บันทึกการแก้ไข
-        _context.Facilities.Update(facility);
+    [HttpGet("getTimetable/{facilityId}")]
+    public async Task<IActionResult> GetTimetableByFacility(int facilityId)
+    {
+        var timetables = await _context.TimeSlots
+            .Where(t => t.Fac_ID == facilityId)
+            .Select(t => new
+            {
+                t.Slot_ID,
+                t.StartTime,
+                t.EndTime,
+                t.Label,
+                t.IsAvailable
+            })
+            .ToListAsync();
+
+        return Ok(timetables);
+    }
+
+    [HttpPut("EditTime/{slotId}")]
+    public async Task<IActionResult> EditTimeSlot(int slotId, [FromBody] Timemodel model)
+    {
+        var slot = await _context.TimeSlots.FindAsync(slotId);
+        if (slot == null)
+            return NotFound(new { message = "ไม่พบ Time Slot ที่ต้องการแก้ไข" });
+
+        if (model.StartTime >= model.EndTime)
+            return BadRequest(new { message = "เวลาเริ่มต้นต้องน้อยกว่าเวลาสิ้นสุด" });
+
+        slot.StartTime = model.StartTime;
+        slot.EndTime = model.EndTime;
+        slot.IsAvailable = model.IsAvailable;
+        slot.Label = model.Label ?? $"{model.StartTime:hh\\:mm} - {model.EndTime:hh\\:mm}";
+
+        _context.TimeSlots.Update(slot);
         await _context.SaveChangesAsync();
 
-        return Ok(new { message = "แก้ไขข้อมูล Facility สำเร็จ", facility });
+        return Ok(new { message = "แก้ไขสำเร็จ", slot });
     }
-    catch (Exception ex)
+
+    [HttpPost("AddTime")]
+    public async Task<IActionResult> AddTimeSlot([FromBody] Timemodel model)
     {
-        // ถ้ามีข้อผิดพลาดในการอัปเดต
-        return StatusCode(500, new { message = "เกิดข้อผิดพลาดในการแก้ไขข้อมูล Facility", error = ex.Message });
+        if (model.StartTime >= model.EndTime)
+            return BadRequest(new { message = "เวลาเริ่มต้นต้องน้อยกว่าเวลาสิ้นสุด" });
+
+        if (model.Fac_ID <= 0)
+            return BadRequest(new { message = "ต้องระบุ Facility" });
+
+        model.Label = model.Label ?? $"{model.StartTime:hh\\:mm} - {model.EndTime:hh\\:mm}";
+        _context.TimeSlots.Add(model);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "เพิ่ม Time Slot สำเร็จ", model });
     }
-}
 
+    [HttpDelete("DeleteTime/{slotId}")]
+    public async Task<IActionResult> DeleteTimeSlot(int slotId)
+    {
+        var slot = await _context.TimeSlots.FindAsync(slotId);
+        if (slot == null)
+            return NotFound(new { message = "ไม่พบ Time Slot" });
 
+        _context.TimeSlots.Remove(slot);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "ลบ Time Slot เรียบร้อยแล้ว" });
+    }
 
     
 }
