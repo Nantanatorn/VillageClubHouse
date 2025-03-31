@@ -4,11 +4,15 @@
 <div class="container mx-auto px-4 py-10 mt-16">
   <p class="text-4xl font-bold text-white text-center mb-4 bg-gray-900 py-3 rounded">📢 Reservation History</p>
   <p class="text-xl font-semibold">ข้อมูลผู้จอง</p>
-  <div class="mt-2">
-    <p><span class="font-semibold">ชื่อ:</span> </p>
-    <p><span class="font-semibold">อีเมล:</span> </p>
-    <p><span class="font-semibold">เบอร์โทรศัพท์:</span> </p>
+  <div class="mt-2" *ngIf="acc">
+    <p><span class="font-semibold">ชื่อ:</span> {{ acc?.firstName || '-' }} {{ acc?.lastName || '-' }}</p>
+    <p><span class="font-semibold">อีเมล:</span> {{ acc?.email || '-' }}</p>
+    <p><span class="font-semibold">เบอร์โทรศัพท์:</span> {{ acc?.phone || '-' }}</p>
   </div>
+  
+  
+  
+  
   <p class="text-sm text-gray-300 text-center mb-8">📅 อัปเดตล่าสุด: <span id="updateTime" class="font-semibold text-white"></span></p>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

@@ -25,3 +25,26 @@ export interface ReservationPayment {
   pay_Status: string;     
 }
 
+export interface myAcc  {
+  id: number
+  idCard: string
+  firstName: string
+  lastName: string
+  birthDate: string
+  email: string
+  phone: string
+  role: string
+  password: string
+  position: string
+  address: string
+  status: any
+}
+
+export interface UserData {
+  FirstName: string;
+  LastName: string;
+  Phone: string;
+  Email: string;
+  BirthDate?: string;
+  Password?: string;
+}

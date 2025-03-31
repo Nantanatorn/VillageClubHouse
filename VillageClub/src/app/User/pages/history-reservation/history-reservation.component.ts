@@ -1,3 +1,4 @@
+import { myAcc } from './../../../Model/time';
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { initFlowbite } from 'flowbite';
 import { FlowbiteService } from '../../../Service/flowbite service/flowbite.service';
@@ -14,6 +15,8 @@ import { ReservationPayment } from '../../../Model/time';
 export class HistoryReservationComponent implements OnInit {
   reservations: ReservationPayment[] = [];
   editReservation: ReservationPayment | null = null;
+  acc: myAcc | null = null;
+
 
   constructor(
     private flowbiteService: FlowbiteService,
@@ -32,25 +35,45 @@ export class HistoryReservationComponent implements OnInit {
     setInterval(() => this.updateTime(), 1000);
 
     this.loadReservations();
+    this.loadMyAccount();
   }
 
   loadReservations(): void {
     const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
+    if (!token) {
+      this.router.navigate(['/login']);
+      return;
+    }
+  
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+  
     this.http.get<ReservationPayment[]>('http://localhost:5203/api/Payment/getresavtionhis', { headers }).subscribe({
-      next: (data) => {
+      next: data => {
         this.reservations = data;
         this.cdRef.detectChanges();
       },
-      error: (err) => {
-        console.error("Error fetching reservation history:", err);
-        console.log("Please check");
-      }
+      error: err => console.error("Error fetching reservation history:", err)
     });
   }
+  
+  loadMyAccount(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigate(['/login']);
+      return;
+    }
+  
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+  
+    this.http.get<myAcc>('http://localhost:5203/api/User/getmy', { headers }).subscribe({
+      next: data => {
+        this.acc = data;
+        this.cdRef.detectChanges();
+      },
+      error: err => console.error("Error fetching account info:", err)
+    });
+  }
+  
 
   openEditModal(reservation: ReservationPayment) {
     this.editReservation = { ...reservation };

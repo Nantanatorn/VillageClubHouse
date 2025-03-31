@@ -237,6 +237,7 @@ public class UserController : ControllerBase
         user.Phone = model.Phone;
         user.Email = model.Email;
         
+        
         if (model.BirthDate.HasValue)
         {
             user.BirthDate = model.BirthDate.Value;

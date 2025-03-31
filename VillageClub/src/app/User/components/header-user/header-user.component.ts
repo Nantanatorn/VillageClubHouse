@@ -24,7 +24,8 @@ export class HeaderUserComponent implements OnInit {
   };
 
   // ฟังก์ชันเพื่อเปิด Modal
-  openModal() {
+  openModal(): void {
+    this.loadUserData();  // โหลดข้อมูลก่อน
     this.isModalOpen = true;
   }
 
@@ -56,39 +57,70 @@ export class HeaderUserComponent implements OnInit {
 
   // ฟังก์ชันสำหรับอัปเดตข้อมูลผู้ใช้
   updateUser(): void {
-    const token = localStorage.getItem('token'); // ดึง JWT Token ที่เก็บใน localStorage
-
-    // ตรวจสอบว่า token มีค่าไหม
+    const token = localStorage.getItem('token');
+  
     if (!token) {
       Swal.fire('Error', 'Token is missing', 'error');
       return;
     }
-
+  
+    const payload = {
+      FirstName: this.userData.FirstName,
+      LastName: this.userData.LastName,
+      Phone: this.userData.Phone,
+      Email: this.userData.Email,
+      BirthDate: this.userData.BirthDate,
+      Password: this.userData.Password
+    };
+  
     const apiUrl = 'http://localhost:5203/api/User/UserEdit';
-
-    // สร้าง HTTP headers ที่มี Authorization (JWT Token)
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    this.http.put(apiUrl, this.userData, { headers }).subscribe(
-      (response) => {
-        // แสดง SweetAlert เมื่ออัปเดตสำเร็จ
+  
+    this.http.put(apiUrl, payload, { headers }).subscribe({
+      next: (response) => {
         Swal.fire({
           icon: 'success',
           title: 'Profile Updated',
           text: 'Your profile has been updated successfully!'
         });
-
-        // ปิด Modal หลังจากอัปเดตสำเร็จ
         this.closeModal();
       },
-      (error) => {
-        // แสดง SweetAlert เมื่อเกิดข้อผิดพลาด
+      error: (error) => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'There was an error updating your profile!'
         });
+        console.error('Update error:', error);
       }
-    );
+    });
   }
+  loadUserData(): void {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      Swal.fire('Error', 'Token is missing', 'error');
+      return;
+    }
+  
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    this.http.get<any>('http://localhost:5203/api/User/getmy', { headers })
+      .subscribe({
+        next: (response) => {
+          this.userData.FirstName = response.firstName;
+          this.userData.LastName = response.lastName;
+          this.userData.Phone = response.phone;
+          this.userData.Email = response.email;
+          this.userData.BirthDate = response.birthDate ? response.birthDate.split('T')[0] : '';
+          this.userData.Password = '';
+        },
+        error: (err) => {
+          Swal.fire('Error', 'Failed to load user data.', 'error');
+          console.error('Load error:', err);
+        }
+      });
+  }
+  
+  
 }
