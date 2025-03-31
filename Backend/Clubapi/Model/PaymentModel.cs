@@ -23,9 +23,6 @@ namespace ClubAPI.Models
         [StringLength(50)]
         public string? Pay_Method { get; set; }  // Payment method (e.g., transfer, QR Code)
 
-        [StringLength(255)]
-        public string? Pay_Slip { get; set; }  // Payment slip file path (optional)
-
         [StringLength(20)]
         public string Pay_Status { get; set; } = "Pending";  // Payment status (Pending, Verified, Rejected)
 

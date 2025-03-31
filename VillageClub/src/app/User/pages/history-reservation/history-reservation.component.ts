@@ -1,54 +1,83 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { initFlowbite } from 'flowbite';
+import { FlowbiteService } from '../../../Service/flowbite service/flowbite.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { ReservationPayment } from '../../../Model/time';
+
 
 @Component({
   selector: 'app-history-reservation',
   templateUrl: './history-reservation.component.html',
-  styleUrl: './history-reservation.component.css'
+  styleUrls: ['./history-reservation.component.css']
 })
-export class HistoryReservationComponent {
-  facilities: string[] = [
-    'ฟิตเนส',
-    'สระว่ายน้ำ',
-    'ห้องจัดเลี้ยง',
-    'สนามเทนนิส',
-    'สนามแบตมินตัน',
-    'สนามฟุตบอล'
-  ];
-  reservations = [
-    {
-      id: 1,
-      facility: 'สนามฟุตบอล',
-      date: '2025-04-01',
-      time: '10:00',
-      status: 'รออนุมัติ',
-      
-    },
-    {
-      id: 2,
-      facility: 'สระว่ายน้ำ',
-      date: '2025-04-02',
-      time: '15:00',
-      status: 'อนุมัติแล้ว',
-      
-    }
-  ];
+export class HistoryReservationComponent implements OnInit {
+  reservations: ReservationPayment[] = [];
+  editReservation: ReservationPayment | null = null;
 
-  editReservation: any = null;
+  constructor(
+    private flowbiteService: FlowbiteService,
+    private http: HttpClient,
+    private cdRef: ChangeDetectorRef,
+    private ngZone: NgZone,
+    private router: Router
+  ) {}
 
-openEditModal(reservation: any) {
-  this.editReservation = { ...reservation }; // clone เพื่อแก้ไข
-}
+  ngOnInit(): void {
+    this.flowbiteService.loadFlowbite(() => {
+      initFlowbite();
+    });
 
-closeModal() {
-  this.editReservation = null;
-}
+    this.updateTime();
+    setInterval(() => this.updateTime(), 1000);
 
-saveEdit() {
-  const index = this.reservations.findIndex(r => r.id === this.editReservation.id);
-  if (index > -1) {
-    this.reservations[index] = { ...this.editReservation };
+    this.loadReservations();
   }
-  this.closeModal();
-}
 
+  loadReservations(): void {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get<ReservationPayment[]>('http://localhost:5203/api/Payment/getresavtionhis', { headers }).subscribe({
+      next: (data) => {
+        this.reservations = data;
+        this.cdRef.detectChanges();
+      },
+      error: (err) => {
+        console.error("Error fetching reservation history:", err);
+        console.log("Please check");
+      }
+    });
+  }
+
+  openEditModal(reservation: ReservationPayment) {
+    this.editReservation = { ...reservation };
+  }
+
+  closeModal() {
+    this.editReservation = null;
+  }
+
+  saveEdit() {
+    const index = this.reservations.findIndex(r => r.r_id === this.editReservation?.r_id);
+    if (index > -1 && this.editReservation) {
+      this.reservations[index] = { ...this.editReservation };
+    }
+    this.closeModal();
+  }
+
+  updateTime(): void {
+    const now = new Date();
+    const formattedTime = now.toLocaleString('th-TH', {
+      year: 'numeric', month: 'long', day: 'numeric',
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+
+    const element = document.getElementById("updateTime");
+    if (element) {
+      element.innerText = formattedTime;
+    }
+  }
 }

@@ -5,6 +5,8 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import flatpickr from 'flatpickr';
 import { TimetableSlot } from '../../../Model/time';
 import { format } from 'date-fns';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 
 
@@ -23,12 +25,14 @@ export class ReservationComponent implements OnInit, AfterViewInit {
   showQRCode: boolean = false;
   paymentMethod: string = '';
   selectedSlot: TimetableSlot | null = null;
+  reservationId: number | null = null;
 
   constructor(
     private flowbiteService: FlowbiteService,
     private http: HttpClient,
     private cdRef: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -141,6 +145,7 @@ export class ReservationComponent implements OnInit, AfterViewInit {
     this.http.post('http://localhost:5203/api/Reservation/reserve', request, { headers }).subscribe({
       next: (res: any) => {
         alert("✅ จองสำเร็จ: " + res.message);
+        this.reservationId = res.reservation.r_id;
         this.showQRCode = true;
       },
       error: (err) => {
@@ -169,15 +174,59 @@ export class ReservationComponent implements OnInit, AfterViewInit {
   }
 
   payNow() {
-    if (!this.paymentMethod) {
-      alert("กรุณาเลือกวิธีชำระเงิน");
+    if (!this.paymentMethod || !this.reservationId) {
+      Swal.fire('ข้อมูลไม่ครบ', 'กรุณาเลือกวิธีชำระเงิน หรือข้อมูลการจองไม่ครบ', 'warning');
       return;
     }
   
-    alert(`📤 กำลังดำเนินการชำระเงินผ่าน ${this.paymentMethod.toUpperCase()}`);
+    const token = localStorage.getItem('token'); // ดึง JWT จาก local storage
   
-    // TODO: เพิ่ม logic ชำระเงิน หรือ redirect ไปหน้าประวัติการจอง ฯลฯ
+    if (!token) {
+      Swal.fire('Unauthorized', 'ไม่พบ Token, กรุณา login ใหม่', 'error');
+      return;
+    }
+  
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+  
+    const payload = {
+      R_id: this.reservationId,
+      Pay_Method: this.paymentMethod
+    };
+  
+    this.http.post('http://localhost:5203/api/Payment/pay', payload, { headers }).subscribe({
+      next: (response: any) => {
+        Swal.fire({
+          title: '✅ ชำระเงินสำเร็จ',
+          text: response.message,
+          icon: 'success',
+          confirmButtonText: 'ตกลง'
+        }).then(() => {
+          this.showQRCode = false; // ปิด QR Code
+          this.router.navigate(['/history']); // Redirect ไปหน้าประวัติการจอง
+        });
+      },
+      error: (err) => {
+        console.error("🚫 Payment Error", err);
+        Swal.fire('🚫 เกิดข้อผิดพลาด', 'เกิดข้อผิดพลาดในการชำระเงิน: ' + err.message, 'error');
+      }
+    });
   }
   
+  
+  
+  calculateTotalPrice(): number {
+  if (!this.selectedFacility || !this.selectedSlot) return 0;
+
+  const [startTime, endTime] = this.selectedSlot.label.split('-').map(time => time.trim());
+
+  const startHour = parseInt(startTime.split(':')[0], 10);
+  const endHour = parseInt(endTime.split(':')[0], 10);
+
+  const duration = endHour - startHour;
+
+  return (duration * this.selectedFacility.fac_price ) / 2 ;
+  }
 
 }

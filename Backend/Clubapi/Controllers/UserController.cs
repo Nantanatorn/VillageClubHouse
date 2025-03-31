@@ -25,6 +25,81 @@ public class UserController : ControllerBase
         _config = config;
     }
 
+    [HttpGet("getUser")]
+    public async Task<IActionResult> GetUser()
+    {
+        try
+        {
+            var facilities = await _context.Users.ToListAsync();
+            if (facilities == null || !facilities.Any())
+            {
+                return NotFound(new { message = "No facilities found." });
+            }
+            return Ok(User);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while retrieving facilities.", error = ex.Message });
+        }
+    }
+
+    [HttpGet("getUser/{id}")]
+    public async Task<IActionResult> GetUserById(int id)
+    {
+        try
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound(new { message = "ไม่พบผู้ใช้งานที่ระบุ" });
+            }
+
+            return Ok(user);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                message = "เกิดข้อผิดพลาดขณะดึงข้อมูลผู้ใช้งาน",
+                error = ex.Message
+            });
+        }
+    }
+
+    [HttpGet("getmy")]
+    [Authorize]
+    public async Task<IActionResult> GetUserFromToken()
+    {
+        try
+        {
+            // ✅ ดึง User ID จาก Token
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+            {
+                return Unauthorized(new { message = "ไม่สามารถอ่านรหัสผู้ใช้จาก Token ได้" });
+            }
+
+            // ✅ ดึงข้อมูลผู้ใช้จากฐานข้อมูล
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound(new { message = "ไม่พบผู้ใช้งานที่ระบุ" });
+            }
+
+            return Ok(user);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                message = "เกิดข้อผิดพลาดขณะดึงข้อมูลผู้ใช้งาน",
+                error = ex.Message
+            });
+        }
+    }
+
 
   [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterModel model)
@@ -215,20 +290,20 @@ public class UserController : ControllerBase
     }
 
 
-        [HttpGet("whoami")]
-[Authorize]
-public IActionResult WhoAmI()
-{
-    var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    var name = User.FindFirst(ClaimTypes.Name)?.Value;
-    var email = User.FindFirst(ClaimTypes.Email)?.Value;
-    var role = User.FindFirst(ClaimTypes.Role)?.Value;
+    [HttpGet("whoami")]
+    [Authorize]
+    public IActionResult WhoAmI()
+    {
+        var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var name = User.FindFirst(ClaimTypes.Name)?.Value;
+        var email = User.FindFirst(ClaimTypes.Email)?.Value;
+        var role = User.FindFirst(ClaimTypes.Role)?.Value;
 
-    return Ok(new {
-        id,
-        name,
-        email,
-        role
-    });
-}
+        return Ok(new {
+            id,
+            name,
+            email,
+            role
+        });
+    }
 }

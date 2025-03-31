@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ClubAPI.Models;
 
@@ -13,5 +14,9 @@ public class FacilitiesModel
     public int? Fac_Used { get; set; } = 0;
     public int? Fac_Empty { get; set; }
     public string? Fac_img { get; set; }
+
+    [Column(TypeName = "decimal(10,2)")]
+    public decimal Fac_price { get; set; }
+
 
 }
