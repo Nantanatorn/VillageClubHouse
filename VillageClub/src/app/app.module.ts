@@ -53,13 +53,10 @@ import { EmpEditModalComponent } from './Admin/components/emp-edit-modal/emp-edi
     DashboardComponent,
     EditUserComponent,
     StaffSidebarComponent,
-<<<<<<< HEAD
-    HistoryReservationComponent
+    HistoryReservationComponent,
     
-=======
     EmpModalComponent,
     EmpEditModalComponent
->>>>>>> 81aea2131e3dec3c5941e6119a3261829f8884b9
   ],
   imports: [
     BrowserModule,
