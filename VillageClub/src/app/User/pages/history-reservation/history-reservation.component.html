@@ -23,7 +23,8 @@
               <th scope="col" class="px-6 py-3">วันที่จอง</th>
               <th scope="col" class="px-6 py-3">ระยะเวลา</th>
               <th scope="col" class="px-6 py-3"> ค่ามัดจำ </th>                
-              <th scope="col" class="px-6 py-3">สถานะ</th>             
+              <th scope="col" class="px-6 py-3">สถานะชำระเงิน</th>    
+              <th scope="col" class="px-6 py-3">สถานะการจอง</th>             
             </tr>
         </thead>
         <tbody>
@@ -36,8 +37,17 @@
             <td class="px-6 py-4">
               <span [ngClass]="{
                 'text-yellow-600 font-semibold': r.pay_Status === 'Pending',
-                'text-green-600 font-semibold': r.pay_Status === 'Verified',
-                'text-red-600 font-semibold': r.pay_Status === 'Rejected'
+                'text-green-600 font-semibold': r.pay_Status === 'Compete',
+                'text-red-600 font-semibold': r.pay_Status === 'Fail'
+              }">
+                {{ r.pay_Status }}
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <span [ngClass]="{
+                'text-yellow-600 font-semibold': r.r_Status === 'Pending',
+                'text-green-600 font-semibold': r.r_Status === 'Accept ',
+                'text-red-600 font-semibold': r.r_Status === 'Rejected'
               }">
                 {{ r.pay_Status }}
               </span>

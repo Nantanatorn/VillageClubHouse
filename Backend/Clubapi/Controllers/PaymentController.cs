@@ -99,6 +99,83 @@ public class PaymentController : ControllerBase {
         }
     }
 
+    [HttpGet("Paymentall")]
+    public async Task<IActionResult> GetAllPaymentViews()
+    {
+        try
+        {
+            var data = await _context.paymentViewModels.ToListAsync();
 
+            if (data == null || !data.Any())
+            {
+                return NotFound(new { message = "ไม่พบข้อมูลการชำระเงิน" });
+            }
+
+            return Ok(data);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                message = "เกิดข้อผิดพลาดขณะดึงข้อมูลการชำระเงิน",
+                error = ex.Message
+            });
+        }
+    }
+
+    [HttpGet("getReservationStatusAll")]
+    public async Task<IActionResult> GetReservationStatusAll()
+    {
+        try
+        {
+            var result = await _context.ReservationStatusViewModels.ToListAsync();
+
+            if (result == null || result.Count == 0)
+            {
+                return NotFound(new { message = "ไม่พบข้อมูลสถานะการจอง" });
+            }
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                message = "เกิดข้อผิดพลาดในการดึงข้อมูล",
+                error = ex.Message
+            });
+        }
+    }
+
+    [HttpPut("updatePaymentStatus/{pay_ID}")]
+    public async Task<IActionResult> UpdatePaymentStatus(int pay_ID, [FromBody] UpdatePaymentStatusRequest request)
+    {
+        try
+        {
+            var payment = await _context.Payments.FindAsync(pay_ID);
+
+            if (payment == null)
+            {
+                return NotFound(new { message = "ไม่พบรายการชำระเงินที่ระบุ" });
+            }
+
+            payment.Pay_Status = request.Pay_Status;
+            payment.Verified_By = request.Verified_By; // ใส่ ID หรือชื่อ Admin ที่อนุมัติ
+            payment.Verified_At = DateTime.Now;
+
+            _context.Payments.Update(payment);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "อัปเดตสถานะการชำระเงินสำเร็จ", payment });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                message = "เกิดข้อผิดพลาดขณะอัปเดตสถานะการชำระเงิน",
+                error = ex.Message
+            });
+        }
+    }
 
 }

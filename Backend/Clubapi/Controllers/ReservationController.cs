@@ -69,7 +69,35 @@ public class ReservationController : ControllerBase {
         }
         }
 
+    [HttpPut("updateStatus/{r_id}")]
+    public async Task<IActionResult> UpdateReservationStatus(int r_id, [FromBody] UpdateStatusRequest request)
+    {
+        try
+        {
+            var reservation = await _context.Reservations.FindAsync(r_id);
 
+            if (reservation == null)
+            {
+                return NotFound(new { message = "ไม่พบรายการจองที่ระบุ" });
+            }
+
+            reservation.R_Status = request.R_Status;
+            reservation.R_UpdatedAt = DateTime.Now;
+
+            _context.Reservations.Update(reservation);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "อัปเดตสถานะการจองสำเร็จ", reservation });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                message = "เกิดข้อผิดพลาดขณะอัปเดตสถานะ",
+                error = ex.Message
+            });
+        }
+    }
 
 
 }

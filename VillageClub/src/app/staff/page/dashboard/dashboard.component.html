@@ -1,7 +1,76 @@
 <app-staff-sidebar></app-staff-sidebar>
 <div class="p-4 sm:ml-64">
 <div class="container mx-auto p-6 mt-10">
-    <p class="text-2xl font-semibold mb-4">Room Reservation Table</p>
+    <p class="text-2xl font-semibold mb-4">Payment Table</p>
+    
+<form class="flex ml-0 mb-5 max-w-sm mx-auto">   
+    <label for="simple-search" class="sr-only">Search</label>
+    <div class="relative w-full">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+              </svg>              
+        </div>
+        <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search room reservation..." required />
+    </div>
+    <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+        <span class="sr-only">Search</span>
+    </button>
+</form>
+
+<div class="overflow-x-auto">
+  <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th class="px-6 py-3">Payment ID</th>
+        <th class="px-6 py-3">Facility Name</th>
+        <th class="px-6 py-3">Name</th>
+        <th class="px-6 py-3">Payment Date</th>
+        <th class="px-6 py-3">Amount</th>
+        <th class="px-6 py-3">Method</th>
+        <th class="px-6 py-3">Status</th>
+        <th class="px-6 py-3">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let payment of payments" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <td class="px-6 py-4">{{ payment.pay_ID }}</td>
+        <td class="px-6 py-4">{{ payment.fac_Name }}</td>
+        <td class="px-6 py-4">{{ payment.firstName }} {{ payment.lastName }}</td>
+        <td class="px-6 py-4">{{ payment.pay_Date | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td class="px-6 py-4">{{ payment.pay_Amount | currency:'THB':'symbol-narrow' }}</td>
+        <td class="px-6 py-4">{{ payment.pay_Method }}</td>
+        <td class="px-6 py-4">
+          <span [ngClass]="{
+            'text-yellow-500 font-semibold': payment.pay_Status === 'Pending',
+            'text-green-600 font-semibold': payment.pay_Status === 'Verified',
+            'text-red-600 font-semibold': payment.pay_Status === 'Rejected'
+          }">
+            {{ payment.pay_Status }}
+          </span>
+        </td>
+        <td class="px-6 py-4">
+          <select
+          [(ngModel)]="payment.pay_Status"
+          (change)="updatePayStatus(payment)"
+          [disabled]="payment.pay_Status === 'Verified'"
+            class="bg-white dark:bg-gray-700 text-sm border border-gray-300 dark:border-gray-600 rounded-md shadow-sm px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700 dark:text-white"
+          >
+            <option value="Pending">Pending</option>
+            <option value="Verified">Verified</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  </div>
+  <div class="container mx-auto p-6 mt-10">
+    <p class="text-2xl font-semibold mb-4">Reservation Table</p>
     
 <form class="flex ml-0 mb-5 max-w-sm mx-auto">   
     <label for="simple-search" class="sr-only">Search</label>
@@ -26,23 +95,43 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">Reservation ID</th>
-            <th scope="col" class="px-6 py-3">Room Name</th>
-            <th scope="col" class="px-6 py-3">firstname</th>
-            <th scope="col" class="px-6 py-3">lastname</th>
-            <th scope="col" class="px-6 py-3">history</th>
-            <th scope="col" class="px-6 py-3">evidence</th>
+            <th scope="col" class="px-6 py-3">Facility name</th>
+            <th scope="col" class="px-6 py-3">Name</th>
+            <th scope="col" class="px-6 py-3">ReservDate</th>
+            <th scope="col" class="px-6 py-3">Time</th>
             <th scope="col" class="px-6 py-3">Status</th>
+            <th scope="col" class="px-6 py-3">Edit</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let reservation of reservations" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <td class="px-6 py-4">{{ reservation.reservationId }}</td>
-            <td class="px-6 py-4">{{ reservation.roomName }}</td>
-            <td class="px-6 py-4">{{ reservation.firstname }}</td>
-            <td class="px-6 py-4">{{ reservation.lastname }}</td>
-            <td class="px-6 py-4"><button  class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">history</button></td>
-            <td class="px-6 py-4"><button  class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">upload</button></td>
-            <td class="px-6 py-4">{{ reservation.status }}</td>
+          <tr *ngFor="let reservation of reservations; trackBy: trackById" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td class="px-6 py-4">{{ reservation.r_id }}</td>
+            <td class="px-6 py-4">{{ reservation.fac_Name }}</td>
+            <td class="px-6 py-4">{{ reservation.firstName }} {{ reservation.lastName }}</td>
+            <td class="px-6 py-4">{{ reservation.r_Date | date: 'dd/MM/yyyy '}}</td>
+            <td class="px-6 py-4">{{ reservation.r_Time }}</td>
+            <td class="px-6 py-4">
+              <span [ngClass]="{
+                'text-yellow-500 font-semibold': reservation.r_Status === 'Pending',
+                'text-green-600 font-semibold': reservation.r_Status === 'Verified',
+                'text-red-600 font-semibold': reservation.r_Status === 'Rejected'
+              }">
+                {{ reservation.r_Status }}
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <select
+                [(ngModel)]="reservation.r_Status"
+                (change)="updateReservationStatus(reservation)"
+                [disabled]="reservation.r_Status === 'Verified'"
+                class="bg-white dark:bg-gray-700 text-sm border border-gray-300 dark:border-gray-600 rounded-md shadow-sm px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700 dark:text-white"
+              >
+                <option value="Pending">Pending</option>
+                <option value="Verified">Verified</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </td>
+            
           </tr>
         </tbody>
       </table>
