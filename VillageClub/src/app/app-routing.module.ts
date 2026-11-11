@@ -1,41 +1,42 @@
-import { EditUserComponent } from './staff/page/edit-user/edit-user.component';
+import { EditUserComponent } from './staff/pages/edit-user/edit-user.component';
+import { authGuard } from './Guard/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginUserComponent } from './User/pages/login-user/login-user.component';
-import { HomeComponent } from './User/pages/home/home.component';
-import { RegisterUserComponent } from './User/pages/register-user/register-user.component';
-import { ReservationComponent}from './User/pages/reservation/reservation.component';
-import { StatusComponent } from './User/pages/status/status.component';
-import { LoginAdminComponent } from './Admin/pages/login-admin/login-admin.component';
-import { AdminhomeComponent } from './Admin/pages/adminhome/adminhome.component';
-import { BooknowComponent}from './User/components/booknow/booknow.component';
-import { DropdownComponent } from './User/components/dropdown/dropdown.component';
-import { EmployeeManageComponent } from './Admin/pages/employee-manage/employee-manage.component';
-import { FacilityComponent } from './Admin/pages/facility/facility.component';
-import { DashboardComponent } from './staff/page/dashboard/dashboard.component';
-import { StaffLoginComponent } from './staff/page/staff-login/staff-login.component';
-import { HistoryReservationComponent } from './User/pages/history-reservation/history-reservation.component';
+import { LoginUserComponent } from './user/pages/login-user/login-user.component';
+import { HomeComponent } from './user/pages/home/home.component';
+import { RegisterUserComponent } from './user/pages/register-user/register-user.component';
+import { ReservationComponent}from './user/pages/reservation/reservation.component';
+import { StatusComponent } from './user/pages/status/status.component';
+import { LoginAdminComponent } from './admin/pages/login-admin/login-admin.component';
+import { AdminhomeComponent } from './admin/pages/adminhome/adminhome.component';
+import { BooknowComponent}from './user/components/booknow/booknow.component';
+import { DropdownComponent } from './user/components/dropdown/dropdown.component';
+import { EmployeeManageComponent } from './admin/pages/employee-manage/employee-manage.component';
+import { FacilityComponent } from './admin/pages/facility/facility.component';
+import { DashboardComponent } from './staff/pages/dashboard/dashboard.component';
+import { StaffLoginComponent } from './staff/pages/staff-login/staff-login.component';
+import { HistoryReservationComponent } from './user/pages/history-reservation/history-reservation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, 
   { path: 'login', component:LoginUserComponent },
   {path:'home',component:HomeComponent},
-  {path:'reg',component:RegisterUserComponent},
-  {path:'reservation',component:ReservationComponent},
-  {path:'status',component:StatusComponent},
-  {path:'booknow',component:BooknowComponent},
-  {path:'dropdown',component:DropdownComponent},
-  {path:'history',component:HistoryReservationComponent},
+  {path:'register',component:RegisterUserComponent},
+  {path:'reservation',component:ReservationComponent,canActivate:[authGuard]},
+  {path:'status',component:StatusComponent,canActivate:[authGuard]},
+  {path:'booknow',component:BooknowComponent,canActivate:[authGuard]},
+  {path:'dropdown',component:DropdownComponent,canActivate:[authGuard]},
+  {path:'history',component:HistoryReservationComponent,canActivate:[authGuard]},
   //admin page
   // {path:'admin',component:LoginAdminComponent},
-  {path:'adminhome',component:AdminhomeComponent},
-  {path:'employee-manage',component:EmployeeManageComponent},
-  {path:'facility',component:FacilityComponent},
+  {path:'adminhome',component:AdminhomeComponent,canActivate:[authGuard],data:{roles:['Admin']}},
+  {path:'employee-manage',component:EmployeeManageComponent,canActivate:[authGuard],data:{roles:['Admin']}},
+  {path:'facility',component:FacilityComponent,canActivate:[authGuard],data:{roles:['Admin']}},
 
   //staffpage
   // {path:'staff',component:StaffLoginComponent},
-  {path:'dashboard',component:DashboardComponent},
-  {path:'editUser',component:EditUserComponent}
+  {path:'dashboard',component:DashboardComponent,canActivate:[authGuard],data:{roles:['staff','Admin']}},
+  {path:'edit-user',component:EditUserComponent,canActivate:[authGuard],data:{roles:['staff','Admin']}}
 
 
 ];

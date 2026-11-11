@@ -1,5 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../Service/auth.service';
 
@@ -12,15 +11,12 @@ export class StaffSidebarComponent {
 
    constructor(
       private router: Router,
-      private authService: AuthService,
-      @Inject(PLATFORM_ID) private platformId: object
+      private authService: AuthService
     ) {}
 
   logout(): void {
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.removeItem('token');
-        this.router.navigate(['/']);
-      }
-    }
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
   
 }
